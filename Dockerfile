@@ -4,6 +4,6 @@ WORKDIR /novelApi
 
 COPY package*.json ./novelApi
 
-RUN yarn
+RUN yarn --registry=https://registry.npm.taobao.org
 
 COPY . /novelApi
