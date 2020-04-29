@@ -1,9 +1,11 @@
 FROM node:alpine
 
+RUN mkdir -p /novelApi
+
 WORKDIR /novelApi
 
 COPY package.json yarn.lock ./novelApi/
 
-RUN yarn --registry=https://registry.npm.taobao.org
+RUN yarn install --registry=https://registry.npm.taobao.org
 
 COPY . /novelApi
