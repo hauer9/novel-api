@@ -5,6 +5,6 @@ export interface IConf {
 }
 
 export const baseConf: IConf = {
-  port: 8000,
+  port: 8004,
   jwtSecretKey: 'novel',
 }
