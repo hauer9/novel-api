@@ -5,7 +5,7 @@ export const prodConf: IConf = {
   
   db: {
     dialect: 'mysql',
-    host: "119.23.55.24",
+    host: "mysql",
     port: 3306,
     database: 'novel',
     username: 'root',
