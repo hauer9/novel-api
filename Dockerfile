@@ -6,6 +6,6 @@ WORKDIR /novelApi
 
 COPY package.json yarn.lock ./novelApi/
 
-RUN yarn global add nodemon ts-node --registry=https://registry.npm.taobao.org && yarn --registry=https://registry.npm.taobao.org
+RUN yarn install --registry=https://registry.npm.taobao.org && yarn global add nodemon ts-node --registry=https://registry.npm.taobao.org
 
 COPY . /novelApi
