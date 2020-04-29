@@ -1,0 +1,18 @@
+version: `3`
+
+services:
+  api:
+    build: ./src
+    image: novel_api
+    container_name: novelApi
+    restart: always
+    command: yarn start
+    volumes:
+      - ./src:/novelApi
+    expose:
+      - 8004
+    networks:
+      - net
+networks:
+  net:
+    external: true

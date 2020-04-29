@@ -3,19 +3,19 @@ import bodyParser from 'koa-bodyparser'
 import logger from 'koa-logger'
 import cors from '@koa/cors'
 import jwt from 'koa-jwt'
-import { sequelize } from './models'
-import { devConf } from './conf'
-import { unAuthPaths } from './routes'
+import { sequelize } from './src/models'
+import { devConf } from './src/conf'
+import { unAuthPaths } from './src/routes'
 import {
   error,
   request,
-} from './middlewares'
+} from './src/middlewares'
 import {
   novelRouter,
   typeRouter,
   userRouter,
   chapterRouter,
-} from './routes'
+} from './src/routes'
 
 /* 
  * Base config
