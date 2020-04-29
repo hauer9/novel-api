@@ -4,8 +4,8 @@ RUN mkdir -p /novelApi
 
 WORKDIR /novelApi
 
-COPY package.json ./novelApi/
+COPY package.json yarn.lock ./novelApi/
 
-RUN npm install nodemon -g --registry=https://registry.npm.taobao.org && npm install --registry=https://registry.npm.taobao.org
+RUN yarn global add nodemon --registry=https://registry.npm.taobao.org && yarn --registry=https://registry.npm.taobao.org
 
 COPY . /novelApi
