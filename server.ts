@@ -4,7 +4,7 @@ import logger from 'koa-logger'
 import cors from '@koa/cors'
 import jwt from 'koa-jwt'
 import { sequelize } from './src/models'
-import { devConf } from './src/conf'
+import { baseConf } from './src/conf'
 import { unAuthPaths } from './src/routes'
 import {
   error,
@@ -21,7 +21,7 @@ import {
  * Base config
 */
 
-const { port, jwtSecretKey } = devConf
+const { port, jwtSecretKey } = baseConf
 
 
 /* 
@@ -30,7 +30,7 @@ const { port, jwtSecretKey } = devConf
 
 sequelize.sync({
   alter: true,
-  // force: true,
+  force: true,
 })
 
 

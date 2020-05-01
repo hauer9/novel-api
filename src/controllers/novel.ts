@@ -10,11 +10,9 @@ export class Novel extends BaseCtrl {
   // Create novel
   async create(ctx: any) {
     const { body } = ctx.request
-    const { title = '', authorId = 1, typeId = 1, chapterTitle = '', chapterContent = '' } = body
-    const novelBody: any = { title, authorId, typeId }
-    const chapterBody: any = { chapterTitle, chapterContent }
+    const { title, authorId, typeId, ...chapterBody } = body
 
-    const novel = await NovelModel.createItem(novelBody)
+    const novel = await NovelModel.create({ title, authorId, typeId })
     const chapter = await novel.$create(`chapter`, chapterBody)
 
     if (!novel && !chapter)
