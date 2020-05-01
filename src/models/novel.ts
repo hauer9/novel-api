@@ -36,7 +36,7 @@ export class Novel extends BaseModel {
   })
   authorId: number
 
-  @BelongsTo(() => User)
+  @BelongsTo(() => User, { onDelete: `CASCADE` })
   author: User
 
   // Type

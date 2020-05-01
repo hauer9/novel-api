@@ -30,7 +30,7 @@ const { port, jwtSecretKey } = baseConf
 
 sequelize.sync({
   alter: true,
-  force: true,
+  // force: true,
 })
 
 
