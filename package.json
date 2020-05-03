@@ -1,10 +1,11 @@
 {
   "name": "blog-api",
   "version": "1.0.0",
-  "description": "",
+  "description": "小说阅读器后端 (koa2 + typescript + mysql)",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon server.ts"
+    "start": "nodemon server.ts",
+    "debug": "nodemon --inspect server.ts"
   },
   "author": "",
   "license": "ISC",

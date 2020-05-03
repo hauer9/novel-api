@@ -1,44 +1,45 @@
 import { BaseCtrl } from './base'
+import { Sequelize } from 'sequelize-typescript'
 import jwt from 'jsonwebtoken'
 import crypto from 'crypto'
-import { baseConf } from '../conf'
+import { jwtSecretKey } from '../conf'
 import { User as UserModel } from '../models'
 
-export class User extends BaseCtrl {
+class User extends BaseCtrl {
   constructor() {
     super(UserModel)
   }
 
   // Login ctrl
   async login(ctx: any) {
-    const { username = null, password = null } = ctx.request.body
+    const { username = '', password = '' } = ctx.request.body
 
-    // Create Md5 password
+    // Created the Md5 password
     const md5Pwd = crypto.createHash('md5').update(password).digest('hex')
 
     // Match username is username or mobile
-    const data = await this.model.getDetail({
-      [this.Op.or]: [
-        { mobile: username },
-        { username },
-      ],
-      password: md5Pwd,
+    const user = await UserModel.findOne({
+      where: {
+        [Sequelize.Op.or]: [
+          { mobile: username },
+          { username },
+        ],
+        password: md5Pwd,
+      }
     })
 
-    if (!data) {
-      ctx.fail('用户名或密码错误')
-      return
-    }
+    if (!user)
+      return ctx.fail('用户名或密码错误')
 
-    // Gen token and set token expiration is 7 days
+    // Gen the token and set the token expiration is 7 days
     const token = jwt.sign({
-      id: data.id,
-      mobile: data.mobile,
-    }, baseConf.jwtSecretKey,
+      id: user.id,
+      mobile: user.mobile,
+    }, jwtSecretKey,
       { expiresIn: '7 days' }
     )
 
-    ctx.success(token)
+    ctx.success({ token })
   }
 
   // Regiest ctrl
@@ -46,38 +47,30 @@ export class User extends BaseCtrl {
     const { body } = ctx.request
 
     // Create user and Set default username is mobile
-    const user = await this.model.createItem({
+    const user = await UserModel.create({
       ...body,
       username: body.mobile,
+    }, {
+      raw: true
     })
 
-    const data = user.dataValues
-    
-    if (!data) {
-      ctx.fail('注册失败')
-      return
-    }
-
     const token = jwt.sign({
-      id: data.id,
-      mobile: data.mobile,
-    }, baseConf.jwtSecretKey,
+      id: user.id,
+      mobile: user.mobile,
+    }, jwtSecretKey,
       { expiresIn: '7 days' }
     )
 
-    ctx.success({ ...data, token })
+    ctx.success({ ...user, token })
   }
 
   // Get User info ctrl
   async getUserInfo(ctx: any) {
     const { id } = ctx.state.user
-    const data = await this.model.getDetail({ id })
 
-    if (!data) {
-      ctx.fail()
-      return
-    }
-      
+    const data = await UserModel.findOne({ where: { id } })
     ctx.success(data)
   }
 }
+
+export const userCtrl = new User()

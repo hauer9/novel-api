@@ -1,11 +1,11 @@
 import { BaseModel } from './base'
-import { Novel } from './novel'
+import Novel from './novel.model'
+import Collection from './collection.model'
 import {
   Table,
   Column,
   DefaultScope,
   HasMany,
-  Sequelize,
 } from 'sequelize-typescript'
 import crypto from 'crypto'
 
@@ -18,7 +18,7 @@ enum IGender {
   attributes: { exclude: ['password'] },
 })
 @Table
-export class User extends BaseModel {
+export default class User extends BaseModel {
   // Mobile
   @Column({
     comment: '手机号码',
@@ -122,4 +122,7 @@ export class User extends BaseModel {
 
   @HasMany(() => Novel)
   novels: Novel[]
+
+  @HasMany(() => Collection)
+  collections: Collection[]
 }

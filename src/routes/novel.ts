@@ -1,5 +1,5 @@
 import Router from 'koa-joi-router'
-import { Novel as Ctrl } from '../controllers'
+import { novelCtrl } from '../controllers'
 
 /* 
  * Defined novel routes
@@ -7,7 +7,7 @@ import { Novel as Ctrl } from '../controllers'
 
 const Joi = Router.Joi
 const router = Router()
-const ctrl = new Ctrl()
+
 
 router.prefix('/novels')
 
@@ -22,7 +22,7 @@ router.route([
         title: Joi.string(),
       },
     },
-    handler: async (ctx: any) => ctrl.getList(ctx)
+    handler: async (ctx: any) => novelCtrl.getList(ctx)
   },
   {
     method: 'get',
@@ -33,7 +33,7 @@ router.route([
         offset: Joi.number(),
       },
     },
-    handler: async (ctx: any) => ctrl.getHotNovel(ctx)
+    handler: async (ctx: any) => novelCtrl.getHotNovel(ctx)
   },
   {
     method: 'get',
@@ -43,7 +43,7 @@ router.route([
         id: Joi.number().required(),
       }
     },
-    handler: async (ctx: any) => ctrl.getDetail(ctx)
+    handler: async (ctx: any) => novelCtrl.getDetail(ctx)
   },
   {
     method: 'post',
@@ -51,14 +51,13 @@ router.route([
     validate: {
       body: {
         title: Joi.string().required(),
-        authorId: Joi.number().required(),
         typeId: Joi.number().required(),
         chapterTitle: Joi.string().required(),
         chapterContent: Joi.string().required(),
       },
       type: 'json',
     },
-    handler: async (ctx: any) => ctrl.create(ctx)
+    handler: async (ctx: any) => novelCtrl.create(ctx)
   },
   {
     method: 'put',
@@ -73,7 +72,7 @@ router.route([
       },
       type: 'json',
     },
-    handler: async (ctx: any) => ctrl.update(ctx)
+    handler: async (ctx: any) => novelCtrl.update(ctx)
   },
   {
     method: 'delete',
@@ -83,8 +82,8 @@ router.route([
         id: Joi.number().required(),
       },
     },
-    handler: async (ctx: any) => ctrl.remove(ctx)
+    handler: async (ctx: any) => novelCtrl.remove(ctx)
   },
 ])
 
-export default router.middleware()
+export const novelRoute = router.middleware()

@@ -1,7 +1,8 @@
 import { BaseModel } from './base'
-import { User } from './user'
-import { Type } from './type'
-import { Chapter } from './chapter'
+import User from './user.model'
+import Type from './type.model'
+import Chapter from './chapter.model'
+import Collection from './collection.model'
 import {
   Table,
   Column,
@@ -9,14 +10,23 @@ import {
   DataType,
   BelongsTo,
   DefaultScope,
+  Scopes,
   HasMany,
 } from 'sequelize-typescript'
 
+
+@Scopes({
+  simple: {
+    include: [() => User, () => Type],
+    attributes: { exclude: [`authorId`, `typeId`, `info`, `announcement`] },
+  }
+})
 @DefaultScope({
-  include: [() => User, () => Type]
+  include: [() => User, () => Type],
+  attributes: { exclude: [`authorId`, `typeId`] }
 })
 @Table
-export class Novel extends BaseModel {
+export default class Novel extends BaseModel {
   // Title
   @Column({
     comment: `标题`,
@@ -47,7 +57,7 @@ export class Novel extends BaseModel {
   })
   typeId: number
 
-  @BelongsTo(() => Type)
+  @BelongsTo(() => Type, { onDelete: `NO ACTION` })
   type: Type
 
   // Cover
@@ -99,4 +109,7 @@ export class Novel extends BaseModel {
 
   @HasMany(() => Chapter)
   chapters: Chapter[]
+
+  @HasMany(() => Collection)
+  collections: Collection[]
 }

@@ -1,5 +1,5 @@
 import { BaseModel } from './base'
-import { Novel } from './novel'
+import Novel from './novel.model'
 import {
   Table,
   DataType,
@@ -9,9 +9,8 @@ import {
 } from 'sequelize-typescript'
 
 @Table
-export class Chapter extends BaseModel {
-
-  // Novel id
+export default class Chapter extends BaseModel {
+  // Novel
   @ForeignKey(() => Novel)
   @Column({
     comment: '作品ID',

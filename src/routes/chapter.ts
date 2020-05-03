@@ -1,5 +1,5 @@
 import Router from 'koa-joi-router'
-import { Chapter as Ctrl } from '../controllers'
+import { chapterCtrl } from '../controllers'
 
 /* 
  * Defined novel routes
@@ -7,7 +7,7 @@ import { Chapter as Ctrl } from '../controllers'
 
 const Joi = Router.Joi
 const router = Router()
-const ctrl = new Ctrl()
+
 
 router.prefix('/chapters')
 
@@ -24,7 +24,7 @@ router.route([
         offset: Joi.number()
       },
     },
-    handler: async (ctx: any) => ctrl.getDir(ctx)
+    handler: async (ctx: any) => chapterCtrl.getDir(ctx)
   },
   {
     method: 'get',
@@ -35,7 +35,7 @@ router.route([
         id: Joi.number().required(),
       }
     },
-    handler: async (ctx: any) => ctrl.getDetail(ctx)
+    handler: async (ctx: any) => chapterCtrl.getDetail(ctx)
   },
   {
     method: 'post',
@@ -48,7 +48,7 @@ router.route([
       },
       type: 'json',
     },
-    handler: async (ctx: any) => ctrl.create(ctx)
+    handler: async (ctx: any) => chapterCtrl.create(ctx)
   },
   {
     method: 'put',
@@ -64,7 +64,7 @@ router.route([
       },
       type: 'json',
     },
-    handler: async (ctx: any) => ctrl.update(ctx)
+    handler: async (ctx: any) => chapterCtrl.update(ctx)
   },
   {
     method: 'delete',
@@ -74,8 +74,8 @@ router.route([
         id: Joi.number().required(),
       },
     },
-    handler: async (ctx: any) => ctrl.remove(ctx)
+    handler: async (ctx: any) => chapterCtrl.remove(ctx)
   },
 ])
 
-export default router.middleware()
+export const chapterRoute = router.middleware()

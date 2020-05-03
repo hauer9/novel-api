@@ -1,5 +1,5 @@
 import Router from 'koa-joi-router'
-import { User as Ctrl } from '../controllers'
+import { userCtrl, collectionCtrl } from '../controllers'
 
 /* 
  * Defined type routes
@@ -7,7 +7,7 @@ import { User as Ctrl } from '../controllers'
 
 const Joi = Router.Joi
 const router = Router()
-const ctrl = new Ctrl()
+
 
 router.prefix('/users')
 
@@ -22,7 +22,7 @@ router.route([
       },
       type: 'json',
     },
-    handler: async (ctx: any) => ctrl.login(ctx)
+    handler: async (ctx: any) => userCtrl.login(ctx)
   },
   {
     method: 'post',
@@ -34,12 +34,22 @@ router.route([
       },
       type: 'json',
     },
-    handler: async (ctx: any) => ctrl.reg(ctx)
+    handler: async (ctx: any) => userCtrl.reg(ctx)
   },
   {
     method: 'get',
     path: '/info',
-    handler: async (ctx: any) => ctrl.getUserInfo(ctx)
+    handler: async (ctx: any) => userCtrl.getUserInfo(ctx)
+  },
+  {
+    method: 'get',
+    path: '/collections',
+    handler: async (ctx: any) => collectionCtrl.getOwnList(ctx)
+  },
+  {
+    method: 'get',
+    path: '/:id/collections',
+    handler: async (ctx: any) => collectionCtrl.getList(ctx)
   },
   {
     method: 'get',
@@ -50,7 +60,7 @@ router.route([
         offset: Joi.number()
       },
     },
-    handler: async (ctx: any) => ctrl.getList(ctx)
+    handler: async (ctx: any) => userCtrl.getList(ctx)
   },
   {
     method: 'get',
@@ -60,7 +70,7 @@ router.route([
         id: Joi.number().required(),
       }
     },
-    handler: async (ctx: any) => ctrl.getDetail(ctx)
+    handler: async (ctx: any) => userCtrl.getDetail(ctx)
   },
   {
     method: 'put',
@@ -80,7 +90,7 @@ router.route([
       },
       type: 'json',
     },
-    handler: async (ctx: any) => ctrl.update(ctx)
+    handler: async (ctx: any) => userCtrl.update(ctx)
   },
   {
     method: 'delete',
@@ -90,8 +100,8 @@ router.route([
         id: Joi.number().required(),
       },
     },
-    handler: async (ctx: any) => ctrl.remove(ctx)
+    handler: async (ctx: any) => userCtrl.remove(ctx)
   },
 ])
 
-export default router.middleware()
+export const userRoute = router.middleware()

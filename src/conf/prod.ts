@@ -1,15 +1,12 @@
-import { baseConf, IConf } from './base'
+import { ISequelizeConfig } from 'sequelize-typescript'
 
-export const prodConf: IConf = {
-  ...baseConf,
-  
-  db: {
-    dialect: 'mysql',
-    host: "mysql",
-    port: 3306,
-    database: 'novel',
-    username: 'root',
-    password: 'asd.0399',
-    timezone: '+8:00',
-  },
+export const prodConf: ISequelizeConfig = {
+  dialect: 'mysql',
+  host: 'mysql',
+  port: 3306,
+  database: 'novel',
+  username: 'root',
+  password: 'asd.0399',
+  // timezone: '+8:00',
+  logging: false,
 }

@@ -1,42 +1,44 @@
 /*
- * Encapsulation of the colorful "console.log", usage:
+ * Encapsulation of the colorful `console.log`, usage:
 */
 
 export const consoleTheme = {
-  normal: '',
-  testing: 'color: darkcyan; font-style: italic;',
-  important: 'color: green; font-style: normal; font-weight: bold;',
-  fail: 'color: #e67e22; font-style: normal; font-weight: normal;',
-  warn: 'color: #fdcb6e; font-style: normal; font-weight: normal;',
-  error: 'color: red; font-style: normal; font-weight: bold;',
+  Reset: `\x1b[0m`,
+  Bright: `\x1b[1m`,
+  Dim: `\x1b[2m`,
+  Underscore: `\x1b[4m`,
+  Blink: `\x1b[5m`,
+  Reverse: `\x1b[7m`,
+  Hidden: `\x1b[8m`,
+
+  FgBlack: `\x1b[30m`,
+  FgRed: `\x1b[31m`,
+  FgGreen: `\x1b[32m`,
+  FgYellow: `\x1b[33m`,
+  FgBlue: `\x1b[34m`,
+  FgMagenta: `\x1b[35m`,
+  FgCyan: `\x1b[36m`,
+  FgWhite: `\x1b[37m`,
+
+  BgBlack: `\x1b[40m`,
+  BgRed: `\x1b[41m`,
+  BgGreen: `\x1b[42m`,
+  BgYellow: `\x1b[43m`,
+  BgBlue: `\x1b[44m`,
+  BgMagenta: `\x1b[45m`,
+  BgCyan: `\x1b[46m`,
+  BgWhite: `\x1b[47m`,
 }
 
-const debug = (
-  objRef: Object | string,
-  methodName: string,
-  msg: string,
-  displayFormat: string,
-  data?: any
-) => {
-  const className = objRef instanceof Object ? objRef.constructor.name : objRef
+const info = (msg: any) => {
+  console.log(consoleTheme.FgCyan, msg)
+}
 
-  const messageToPrint = displayFormat
-    ? `%c[${className} - ${methodName}] ${msg}`
-    : `[${className} - ${methodName}] ${msg}`
-
-  if (displayFormat) {
-    if (data)
-      console.log(messageToPrint, displayFormat, data) // tslint:disable-line no-console
-    else
-      console.log(messageToPrint, displayFormat) // tslint:disable-line no-console
-  } else {
-    if (data)
-      console.log(messageToPrint, data) // tslint:disable-line no-console
-    else
-      console.log(messageToPrint) // tslint:disable-line no-console
-  }
+const error = (msg: any) => {
+  console.log(consoleTheme.FgRed, msg)
 }
 
 export const logger = {
-  debug
+  info,
+  error,
 }

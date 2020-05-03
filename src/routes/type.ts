@@ -1,5 +1,5 @@
 import Router from 'koa-joi-router'
-import { Type as Ctrl } from '../controllers'
+import { typeCtrl } from '../controllers'
 
 /* 
  * Defined type routes
@@ -7,7 +7,7 @@ import { Type as Ctrl } from '../controllers'
 
 const Joi = Router.Joi
 const router = Router()
-const ctrl = new Ctrl()
+
 
 router.prefix('/types')
 
@@ -21,7 +21,7 @@ router.route([
         offset: Joi.number()
       },
     },
-    handler: async (ctx: any) => ctrl.getList(ctx)
+    handler: async (ctx: any) => typeCtrl.getList(ctx)
   },
   {
     method: 'get',
@@ -32,7 +32,7 @@ router.route([
         offset: Joi.number()
       },
     },
-    handler: async (ctx: any) => ctrl.getNovelsByTypes(ctx)
+    handler: async (ctx: any) => typeCtrl.getNovelsByTypes(ctx)
   },
   {
     method: 'get',
@@ -42,7 +42,7 @@ router.route([
         id: Joi.number().required(),
       }
     },
-    handler: async (ctx: any) => ctrl.getDetail(ctx)
+    handler: async (ctx: any) => typeCtrl.getDetail(ctx)
   },
   {
     method: 'post',
@@ -53,7 +53,7 @@ router.route([
       },
       type: 'json',
     },
-    handler: async (ctx: any) => ctrl.create(ctx)
+    handler: async (ctx: any) => typeCtrl.create(ctx)
   },
   {
     method: 'put',
@@ -67,7 +67,7 @@ router.route([
       },
       type: 'json',
     },
-    handler: async (ctx: any) => ctrl.update(ctx)
+    handler: async (ctx: any) => typeCtrl.update(ctx)
   },
   {
     method: 'delete',
@@ -77,8 +77,8 @@ router.route([
         id: Joi.number().required(),
       },
     },
-    handler: async (ctx: any) => ctrl.remove(ctx)
+    handler: async (ctx: any) => typeCtrl.remove(ctx)
   },
 ])
 
-export default router.middleware()
+export const typeRoute = router.middleware()

@@ -1,5 +1,5 @@
 import { BaseModel } from './base'
-import { Novel } from './novel'
+import Novel from './novel.model'
 import { 
   Table,
   Column,
@@ -13,7 +13,7 @@ import {
   }
 })
 @Table
-export class Type extends BaseModel {
+export default class Type extends BaseModel {
   // Name
   @Column({
     comment: '类型名',
