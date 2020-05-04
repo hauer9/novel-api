@@ -27,6 +27,7 @@ class Novel extends BaseCtrl {
   // Get list
   async getList(ctx: any) {
     const { title = ``, ...q } = ctx.query
+    console.log('print', ctx)
 
     const data = await NovelModel.findAndCountAll({
       ...q,
