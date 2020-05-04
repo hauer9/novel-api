@@ -21,7 +21,7 @@ router.route([
   //       offset: Joi.number(),
   //     },
   //   },
-  //   handler: async (ctx: any) => collectionCtrl.getList(ctx)
+  //   handler: collectionCtrl.getList
   // },
   // {
   //   method: 'get',
@@ -31,7 +31,7 @@ router.route([
   //       id: Joi.number().required(),
   //     }
   //   },
-  //   handler: async (ctx: any) => collectionCtrl.getDetail(ctx)
+  //   handler: collectionCtrl.getDetail
   // },
   {
     method: 'post',
@@ -42,7 +42,7 @@ router.route([
       },
       type: 'json',
     },
-    handler: async (ctx: any) => collectionCtrl.create(ctx)
+    handler: collectionCtrl.create
   },
   {
     method: 'put',
@@ -57,7 +57,7 @@ router.route([
       },
       type: 'json',
     },
-    handler: async (ctx: any) => collectionCtrl.update(ctx)
+    handler: collectionCtrl.update
   },
   {
     method: 'delete',
@@ -67,7 +67,7 @@ router.route([
         id: Joi.number().required(),
       },
     },
-    handler: async (ctx: any) => collectionCtrl.remove(ctx)
+    handler: collectionCtrl.remove
   },
 ])
 

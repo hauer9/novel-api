@@ -21,7 +21,7 @@ router.route([
         offset: Joi.number()
       },
     },
-    handler: async (ctx: any) => typeCtrl.getList(ctx)
+    handler: typeCtrl.getList
   },
   {
     method: 'get',
@@ -32,7 +32,7 @@ router.route([
         offset: Joi.number()
       },
     },
-    handler: async (ctx: any) => typeCtrl.getNovelsByTypes(ctx)
+    handler: typeCtrl.getNovelsByTypes
   },
   {
     method: 'get',
@@ -42,7 +42,7 @@ router.route([
         id: Joi.number().required(),
       }
     },
-    handler: async (ctx: any) => typeCtrl.getDetail(ctx)
+    handler: typeCtrl.getDetail
   },
   {
     method: 'post',
@@ -53,7 +53,7 @@ router.route([
       },
       type: 'json',
     },
-    handler: async (ctx: any) => typeCtrl.create(ctx)
+    handler: typeCtrl.create
   },
   {
     method: 'put',
@@ -67,7 +67,7 @@ router.route([
       },
       type: 'json',
     },
-    handler: async (ctx: any) => typeCtrl.update(ctx)
+    handler: typeCtrl.update
   },
   {
     method: 'delete',
@@ -77,7 +77,7 @@ router.route([
         id: Joi.number().required(),
       },
     },
-    handler: async (ctx: any) => typeCtrl.remove(ctx)
+    handler: typeCtrl.remove
   },
 ])
 

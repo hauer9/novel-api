@@ -22,7 +22,7 @@ router.route([
       },
       type: 'json',
     },
-    handler: async (ctx: any) => userCtrl.login(ctx)
+    handler: userCtrl.login
   },
   {
     method: 'post',
@@ -34,22 +34,22 @@ router.route([
       },
       type: 'json',
     },
-    handler: async (ctx: any) => userCtrl.reg(ctx)
+    handler: userCtrl.reg
   },
   {
     method: 'get',
     path: '/info',
-    handler: async (ctx: any) => userCtrl.getUserInfo(ctx)
+    handler: userCtrl.getUserInfo
   },
   {
     method: 'get',
     path: '/collections',
-    handler: async (ctx: any) => collectionCtrl.getOwnList(ctx)
+    handler: collectionCtrl.getOwnList
   },
   {
     method: 'get',
     path: '/:id/collections',
-    handler: async (ctx: any) => collectionCtrl.getList(ctx)
+    handler: collectionCtrl.getList
   },
   {
     method: 'get',
@@ -60,7 +60,7 @@ router.route([
         offset: Joi.number()
       },
     },
-    handler: async (ctx: any) => userCtrl.getList(ctx)
+    handler: userCtrl.getList
   },
   {
     method: 'get',
@@ -70,7 +70,7 @@ router.route([
         id: Joi.number().required(),
       }
     },
-    handler: async (ctx: any) => userCtrl.getDetail(ctx)
+    handler: userCtrl.getDetail
   },
   {
     method: 'put',
@@ -90,7 +90,7 @@ router.route([
       },
       type: 'json',
     },
-    handler: async (ctx: any) => userCtrl.update(ctx)
+    handler: userCtrl.update
   },
   {
     method: 'delete',
@@ -100,7 +100,7 @@ router.route([
         id: Joi.number().required(),
       },
     },
-    handler: async (ctx: any) => userCtrl.remove(ctx)
+    handler: userCtrl.remove
   },
 ])
 

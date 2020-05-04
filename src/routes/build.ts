@@ -14,6 +14,7 @@ router.route([
     path: '/',
     handler: async (ctx: any) => {
       console.log('print', ctx)
+      ctx.success()
     }
   },
 ])
