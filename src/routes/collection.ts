@@ -1,5 +1,5 @@
 import Router from 'koa-joi-router'
-import { chapterCtrl } from '../controllers'
+import { collectionCtrl } from '../controllers'
 
 /* 
  * Defined collection routes
@@ -21,7 +21,7 @@ router.route([
   //       offset: Joi.number(),
   //     },
   //   },
-  //   handler: async (ctx: any) => ctrl.getList(ctx)
+  //   handler: async (ctx: any) => collectionCtrl.getList(ctx)
   // },
   // {
   //   method: 'get',
@@ -31,7 +31,7 @@ router.route([
   //       id: Joi.number().required(),
   //     }
   //   },
-  //   handler: async (ctx: any) => chapterCtrl.getDetail(ctx)
+  //   handler: async (ctx: any) => collectionCtrl.getDetail(ctx)
   // },
   {
     method: 'post',
@@ -42,7 +42,7 @@ router.route([
       },
       type: 'json',
     },
-    handler: async (ctx: any) => chapterCtrl.create(ctx)
+    handler: async (ctx: any) => collectionCtrl.create(ctx)
   },
   {
     method: 'put',
@@ -57,7 +57,7 @@ router.route([
       },
       type: 'json',
     },
-    handler: async (ctx: any) => chapterCtrl.update(ctx)
+    handler: async (ctx: any) => collectionCtrl.update(ctx)
   },
   {
     method: 'delete',
@@ -67,7 +67,7 @@ router.route([
         id: Joi.number().required(),
       },
     },
-    handler: async (ctx: any) => chapterCtrl.remove(ctx)
+    handler: async (ctx: any) => collectionCtrl.remove(ctx)
   },
 ])
 
