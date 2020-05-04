@@ -2,58 +2,58 @@ import Router from 'koa-joi-router'
 import { userCtrl, collectionCtrl } from '../controllers'
 
 /* 
- * Defined type routes
+ * Defined user routes
 */
 
 const Joi = Router.Joi
 const router = Router()
 
 
-router.prefix('/users')
+router.prefix(`/users`)
 
 router.route([
   {
-    method: 'post',
-    path: '/login',
+    method: `post`,
+    path: `/login`,
     validate: {
       body: {
         username: Joi.string().required(),
         password: Joi.string().required(),
       },
-      type: 'json',
+      type: `json`,
     },
     handler: userCtrl.login
   },
   {
-    method: 'post',
-    path: '/reg',
+    method: `post`,
+    path: `/reg`,
     validate: {
       body: {
         mobile: Joi.string().required(),
         password: Joi.string().required(),
       },
-      type: 'json',
+      type: `json`,
     },
     handler: userCtrl.reg
   },
   {
-    method: 'get',
-    path: '/info',
+    method: `get`,
+    path: `/info`,
     handler: userCtrl.getUserInfo
   },
   {
-    method: 'get',
-    path: '/collections',
+    method: `get`,
+    path: `/collections`,
     handler: collectionCtrl.getOwnList
   },
   {
-    method: 'get',
-    path: '/:id/collections',
+    method: `get`,
+    path: `/:id/collections`,
     handler: collectionCtrl.getList
   },
   {
-    method: 'get',
-    path: '/',
+    method: `get`,
+    path: `/`,
     validate: {
       query: {
         limit: Joi.number(),
@@ -63,8 +63,8 @@ router.route([
     handler: userCtrl.getList
   },
   {
-    method: 'get',
-    path: '/:id',
+    method: `get`,
+    path: `/:id`,
     validate: {
       params: {
         id: Joi.number().required(),
@@ -73,8 +73,8 @@ router.route([
     handler: userCtrl.getDetail
   },
   {
-    method: 'put',
-    path: '/:id',
+    method: `put`,
+    path: `/:id`,
     validate: {
       params: {
         id: Joi.number().required(),
@@ -88,13 +88,13 @@ router.route([
         age: Joi.number(),
         birthday: Joi.date(),
       },
-      type: 'json',
+      type: `json`,
     },
     handler: userCtrl.update
   },
   {
-    method: 'delete',
-    path: '/:id',
+    method: `delete`,
+    path: `/:id`,
     validate: {
       params: {
         id: Joi.number().required(),

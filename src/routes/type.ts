@@ -9,12 +9,12 @@ const Joi = Router.Joi
 const router = Router()
 
 
-router.prefix('/types')
+router.prefix(`/types`)
 
 router.route([
   {
-    method: 'get',
-    path: '/',
+    method: `get`,
+    path: `/`,
     validate: {
       query: {
         limit: Joi.number(),
@@ -24,8 +24,8 @@ router.route([
     handler: typeCtrl.getList
   },
   {
-    method: 'get',
-    path: '/novels',
+    method: `get`,
+    path: `/novels`,
     validate: {
       query: {
         limit: Joi.number(),
@@ -35,8 +35,8 @@ router.route([
     handler: typeCtrl.getNovelsByTypes
   },
   {
-    method: 'get',
-    path: '/:id',
+    method: `get`,
+    path: `/:id`,
     validate: {
       params: {
         id: Joi.number().required(),
@@ -45,19 +45,19 @@ router.route([
     handler: typeCtrl.getDetail
   },
   {
-    method: 'post',
-    path: '/',
+    method: `post`,
+    path: `/`,
     validate: {
       body: {
         name: Joi.string().required(),
       },
-      type: 'json',
+      type: `json`,
     },
     handler: typeCtrl.create
   },
   {
-    method: 'put',
-    path: '/:id',
+    method: `put`,
+    path: `/:id`,
     validate: {
       params: {
         id: Joi.number().required(),
@@ -65,13 +65,13 @@ router.route([
       body: {
         name: Joi.string(),
       },
-      type: 'json',
+      type: `json`,
     },
     handler: typeCtrl.update
   },
   {
-    method: 'delete',
-    path: '/:id',
+    method: `delete`,
+    path: `/:id`,
     validate: {
       params: {
         id: Joi.number().required(),

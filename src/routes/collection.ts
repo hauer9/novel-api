@@ -9,12 +9,12 @@ const Joi = Router.Joi
 const router = Router()
 
 
-router.prefix('/collections')
+router.prefix(`/collections`)
 
 router.route([
   // {
-  //   method: 'get',
-  //   path: '/',
+  //   method: `get`,
+  //   path: `/`,
   //   validate: {
   //     query: {
   //       limit: Joi.number(),
@@ -24,8 +24,8 @@ router.route([
   //   handler: collectionCtrl.getList
   // },
   // {
-  //   method: 'get',
-  //   path: '/:id',
+  //   method: `get`,
+  //   path: `/:id`,
   //   validate: {
   //     params: {
   //       id: Joi.number().required(),
@@ -34,19 +34,19 @@ router.route([
   //   handler: collectionCtrl.getDetail
   // },
   {
-    method: 'post',
-    path: '/',
+    method: `post`,
+    path: `/`,
     validate: {
       body: {
         novelId: Joi.number().required(),
       },
-      type: 'json',
+      type: `json`,
     },
     handler: collectionCtrl.create
   },
   {
-    method: 'put',
-    path: '/:id',
+    method: `put`,
+    path: `/:id`,
     validate: {
       params: {
         id: Joi.number().required(),
@@ -55,13 +55,13 @@ router.route([
         authorId: Joi.number(),
         novelId: Joi.number(),
       },
-      type: 'json',
+      type: `json`,
     },
     handler: collectionCtrl.update
   },
   {
-    method: 'delete',
-    path: '/:id',
+    method: `delete`,
+    path: `/:id`,
     validate: {
       params: {
         id: Joi.number().required(),

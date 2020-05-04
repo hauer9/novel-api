@@ -10,10 +10,9 @@ router.prefix(`/build`)
 
 router.route([
   {
-    method: 'post',
-    path: '/',
+    method: `post`,
+    path: `/`,
     handler: async (ctx: any) => {
-      console.log('print', ctx)
       ctx.success()
     }
   },

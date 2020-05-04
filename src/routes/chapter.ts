@@ -9,12 +9,12 @@ const Joi = Router.Joi
 const router = Router()
 
 
-router.prefix('/chapters')
+router.prefix(`/chapters`)
 
 router.route([
   {
-    method: 'get',
-    path: '/dir/:novelId',
+    method: `get`,
+    path: `/dir/:novelId`,
     validate: {
       params: {
         novelId: Joi.number().required(),
@@ -27,8 +27,8 @@ router.route([
     handler: chapterCtrl.getDir
   },
   {
-    method: 'get',
-    path: '/:novelId/:id',
+    method: `get`,
+    path: `/:novelId/:id`,
     validate: {
       params: {
         novelId: Joi.number().required(),
@@ -38,21 +38,21 @@ router.route([
     handler: chapterCtrl.getDetail
   },
   {
-    method: 'post',
-    path: '/',
+    method: `post`,
+    path: `/`,
     validate: {
       body: {
         novelId: Joi.number().required(),
         chapterTitle: Joi.string().required(),
         chapterContent: Joi.string().required(),
       },
-      type: 'json',
+      type: `json`,
     },
     handler: chapterCtrl.create
   },
   {
-    method: 'put',
-    path: '/:id',
+    method: `put`,
+    path: `/:id`,
     validate: {
       params: {
         id: Joi.number().required(),
@@ -62,13 +62,13 @@ router.route([
         chapterTitle: Joi.string(),
         chapterContent: Joi.string(),
       },
-      type: 'json',
+      type: `json`,
     },
     handler: chapterCtrl.update
   },
   {
-    method: 'delete',
-    path: '/:id',
+    method: `delete`,
+    path: `/:id`,
     validate: {
       params: {
         id: Joi.number().required(),

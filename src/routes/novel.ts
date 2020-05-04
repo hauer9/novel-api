@@ -9,12 +9,12 @@ const Joi = Router.Joi
 const router = Router()
 
 
-router.prefix('/novels')
+router.prefix(`/novels`)
 
 router.route([
   {
-    method: 'get',
-    path: '/',
+    method: `get`,
+    path: `/`,
     validate: {
       query: {
         limit: Joi.number(),
@@ -25,8 +25,8 @@ router.route([
     handler: novelCtrl.getList
   },
   {
-    method: 'get',
-    path: '/hot',
+    method: `get`,
+    path: `/hot`,
     validate: {
       query: {
         limit: Joi.number(),
@@ -36,8 +36,8 @@ router.route([
     handler: novelCtrl.getHotNovel
   },
   {
-    method: 'get',
-    path: '/:id',
+    method: `get`,
+    path: `/:id`,
     validate: {
       params: {
         id: Joi.number().required(),
@@ -46,8 +46,8 @@ router.route([
     handler: novelCtrl.getDetail
   },
   {
-    method: 'post',
-    path: '/',
+    method: `post`,
+    path: `/`,
     validate: {
       body: {
         title: Joi.string().required(),
@@ -55,13 +55,13 @@ router.route([
         chapterTitle: Joi.string().required(),
         chapterContent: Joi.string().required(),
       },
-      type: 'json',
+      type: `json`,
     },
     handler: novelCtrl.create
   },
   {
-    method: 'put',
-    path: '/:id',
+    method: `put`,
+    path: `/:id`,
     validate: {
       params: {
         id: Joi.number().required(),
@@ -70,13 +70,13 @@ router.route([
         title: Joi.string(),
         typeId: Joi.number(),
       },
-      type: 'json',
+      type: `json`,
     },
     handler: novelCtrl.update
   },
   {
-    method: 'delete',
-    path: '/:id',
+    method: `delete`,
+    path: `/:id`,
     validate: {
       params: {
         id: Joi.number().required(),
