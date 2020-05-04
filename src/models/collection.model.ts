@@ -38,11 +38,11 @@ export default class Collection extends BaseModel {
   // Novel
   @ForeignKey(() => Novel)
   @Column({
-    comment: '作品ID',
+    comment: `作品ID`,
     allowNull: false,
     validate: {
       notNull: {
-        msg: '作品ID不能为空'
+        msg: `作品ID不能为空`
       },
     }
   })

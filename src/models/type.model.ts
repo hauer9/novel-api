@@ -16,15 +16,15 @@ import {
 export default class Type extends BaseModel {
   // Name
   @Column({
-    comment: '类型名',
+    comment: `类型名`,
     allowNull: false,
     unique: {
-      name: 'name',
-      msg: '类型已存在',
+      name: `name`,
+      msg: `类型已存在`,
     },
     validate: {
       notNull: {
-        msg: '类型不能为空'
+        msg: `类型不能为空`
       },
     }
   })

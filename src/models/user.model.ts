@@ -7,7 +7,8 @@ import {
   DefaultScope,
   HasMany,
 } from 'sequelize-typescript'
-import crypto from 'crypto'
+import { createMd5Pwd } from '../utils'
+
 
 enum IGender {
   '男' = 0,
@@ -15,43 +16,43 @@ enum IGender {
 }
 
 @DefaultScope({
-  attributes: { exclude: ['password'] },
+  attributes: { exclude: [`password`] },
 })
 @Table
 export default class User extends BaseModel {
   // Mobile
   @Column({
-    comment: '手机号码',
+    comment: `手机号码`,
     allowNull: false,
     unique: {
-      name: 'mobile',
-      msg: '手机号已存在',
+      name: `mobile`,
+      msg: `手机号已存在`,
     },
   })
   mobile: string
 
   // Password
   @Column({
-    comment: '密码',
+    comment: `密码`,
     allowNull: false,
   })
   set password(password: string) {
-    const md5Pwd = crypto.createHash('md5').update(password).digest('hex') // md5加密
-    this.setDataValue('password', md5Pwd)
+    const md5Pwd = createMd5Pwd(password) // md5加密
+    this.setDataValue(`password`, md5Pwd)
   }
 
   // username
   @Column({
-    comment: '用户名',
+    comment: `用户名`,
     allowNull: false,
     unique: {
-      name: 'username',
-      msg: '用户名已存在',
+      name: `username`,
+      msg: `用户名已存在`,
     },
     validate: {
       len: {
         args: [1, 20],
-        msg: '用户名字符数应在1-20字符之间',
+        msg: `用户名字符数应在1-20字符之间`,
       }
     },
   })
@@ -59,10 +60,10 @@ export default class User extends BaseModel {
 
   // Avatar
   @Column({
-    comment: '头像',
+    comment: `头像`,
     validate: {
       isUrl: {
-        msg: '非法的url',
+        msg: `非法的url`,
       }
     }
   })
@@ -70,14 +71,14 @@ export default class User extends BaseModel {
 
   // Email
   @Column({
-    comment: '邮箱',
+    comment: `邮箱`,
     unique: {
-      name: 'email',
-      msg: '邮箱已存在',
+      name: `email`,
+      msg: `邮箱已存在`,
     },
     validate: {
       isEmail: {
-        msg: '邮箱格式错误',
+        msg: `邮箱格式错误`,
       }
     }
   })
@@ -85,17 +86,17 @@ export default class User extends BaseModel {
 
   // Gender
   @Column({
-    comment: '性别 (0: 男, 1: 女)',
+    comment: `性别 (0: 男, 1: 女)`,
   })
   gender: IGender
 
   // Age
   @Column({
-    comment: '年龄',
+    comment: `年龄`,
     validate: {
       len: {
         args: [0, 200],
-        msg: '年龄应在0-200岁之间',
+        msg: `年龄应在0-200岁之间`,
       }
     }
   })
@@ -103,11 +104,11 @@ export default class User extends BaseModel {
 
   // Birthday
   @Column({
-    comment: '生日日期',
+    comment: `生日日期`,
     validate: {
       isDate: {
         args: true,
-        msg: '日期格式错误',
+        msg: `日期格式错误`,
       }
     }
   })
@@ -115,7 +116,7 @@ export default class User extends BaseModel {
 
   // IsAdmin
   @Column({
-    comment: '是否管理员',
+    comment: `是否管理员`,
     defaultValue: false,
   })
   isAdmin: boolean

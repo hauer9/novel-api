@@ -1,9 +1,9 @@
 import { BaseCtrl } from './base'
 import { Sequelize } from 'sequelize-typescript'
 import jwt from 'jsonwebtoken'
-import crypto from 'crypto'
 import { jwtSecretKey } from '../conf'
 import { User as UserModel } from '../models'
+import { createMd5Pwd } from '../utils'
 
 class User extends BaseCtrl {
   constructor() {
@@ -15,7 +15,7 @@ class User extends BaseCtrl {
     const { username = '', password = '' } = ctx.request.body
 
     // Created the Md5 password
-    const md5Pwd = crypto.createHash('md5').update(password).digest('hex')
+    const md5Pwd = createMd5Pwd(password)
 
     // Match username is username or mobile
     const user = await UserModel.findOne({
@@ -44,24 +44,25 @@ class User extends BaseCtrl {
 
   // Regiest ctrl
   async reg(ctx: any) {
-    const { body } = ctx.request
+    const { mobile = '', password = '' } = ctx.request.body
 
     // Create user and Set default username is mobile
     const user = await UserModel.create({
-      ...body,
-      username: body.mobile,
-    }, {
-      raw: true
+      username: mobile,
+      mobile,
+      password,
     })
 
+    const data = user.dataValues
+
     const token = jwt.sign({
-      id: user.id,
-      mobile: user.mobile,
+      id: data.id,
+      mobile: data.mobile,
     }, jwtSecretKey,
       { expiresIn: '7 days' }
     )
 
-    ctx.success({ ...user, token })
+    ctx.success({ ...data, token })
   }
 
   // Get User info ctrl
