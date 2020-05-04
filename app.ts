@@ -15,6 +15,7 @@ import {
   userRoute,
   chapterRoute,
   collectionRoute,
+  buildRoute,
 } from './src/routes'
 import { jwtSecretKey } from './src/conf'
 
@@ -33,6 +34,7 @@ app
   .use(bodyParser())                                                  // Parse body
   .use(request.interceptors.response())                               // Set response body struct
   .use(jwt({ secret: jwtSecretKey }).unless({ custom: unless }))   // Set jwt and unAuth paths
+  .use(buildRoute)                                                    // Set routes
   .use(novelRoute)                                                    // Set routes
   .use(userRoute)
   .use(typeRoute)
