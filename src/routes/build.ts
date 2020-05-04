@@ -1,7 +1,7 @@
 import Router from 'koa-joi-router'
 
 /* 
- * Defined type routes
+ * Defined build routes
 */
 
 const router = Router()
