@@ -61,6 +61,7 @@ export default class User extends BaseModel {
   // Avatar
   @Column({
     comment: `头像`,
+    defaultValue: `https://qiniu.tuscanyyy.top/head-659651_1920.png`,
     validate: {
       isUrl: {
         msg: `非法的url`,
