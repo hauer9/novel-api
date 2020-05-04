@@ -19,6 +19,7 @@ import {
 })
 @Table({
   indexes: [{
+    name: `collecionsIndex`,
     unique: true,
     fields: [`user_id`, `novel_id`],
   }]
@@ -40,6 +41,10 @@ export default class Collection extends BaseModel {
   @Column({
     comment: `作品ID`,
     allowNull: false,
+    unique: {
+      name: `collecionsIndex`,
+      msg: `已收藏`,
+    },
     validate: {
       notNull: {
         msg: `作品ID不能为空`
