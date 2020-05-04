@@ -23,7 +23,8 @@ import {
 })
 @DefaultScope({
   include: [() => User, () => Type],
-  attributes: { exclude: [`authorId`, `typeId`] }
+  attributes: { exclude: [`authorId`, `typeId`] },
+  order: [[`createdAt`, `DESC`]],
 })
 @Table
 export default class Novel extends BaseModel {
