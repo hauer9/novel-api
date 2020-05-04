@@ -1,5 +1,5 @@
 import Router from 'koa-joi-router'
-import { novelCtrl } from '../controllers'
+import { buildCtrl } from '../controllers'
 
 /* 
  * Defined build routes
@@ -13,7 +13,7 @@ router.route([
   {
     method: `post`,
     path: `/`,
-    handler: novelCtrl.getList
+    handler: buildCtrl.autoBuild
   },
 ])
 
