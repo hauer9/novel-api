@@ -1,5 +1,5 @@
 {
-  "name": "blog-api",
+  "name": "novel-api",
   "version": "1.0.0",
   "description": "小说阅读器后端 (koa2 + typescript + mysql)",
   "main": "index.js",
@@ -7,7 +7,7 @@
     "start": "nodemon server.ts",
     "debug": "nodemon --inspect server.ts"
   },
-  "author": "",
+  "author": "tuscany",
   "license": "ISC",
   "dependencies": {
     "@koa/cors": "^2.2.3",

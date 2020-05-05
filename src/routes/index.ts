@@ -3,11 +3,9 @@ export * from './user'
 export * from './type'
 export * from './chapter'
 export * from './collection'
-export * from './build'
 
 // UnAuth paths
 export const unAuthPaths = [
-  { url: /^\/build/, methods: [`POST`] },
   { url: /^\/users\/login/, methods: [`POST`] },
   { url: /^\/users\/reg/, methods: [`POST`] },
   { url: /^\/users\/\d+/, methods: [`GET`] },

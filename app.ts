@@ -15,7 +15,6 @@ import {
   userRoute,
   chapterRoute,
   collectionRoute,
-  buildRoute,
 } from './src/routes'
 import { jwtSecretKey } from './src/conf'
 
@@ -39,7 +38,6 @@ app
   .use(typeRoute)
   .use(chapterRoute)
   .use(collectionRoute)
-  .use(buildRoute)
 
 
 export { app }
