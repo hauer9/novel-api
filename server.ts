@@ -3,7 +3,7 @@ import { sequelize } from './sequelize'
 
 
 /* 
- * Base config ...
+ * Base config 
  */
 
 const port = 8004;
