@@ -12,17 +12,19 @@ const router = Router()
 router.prefix(`/collections`)
 
 router.route([
-  // {
-  //   method: `get`,
-  //   path: `/`,
-  //   validate: {
-  //     query: {
-  //       limit: Joi.number(),
-  //       offset: Joi.number(),
-  //     },
-  //   },
-  //   handler: collectionCtrl.getList
-  // },
+  {
+    method: `get`,
+    path: `/`,
+    validate: {
+      query: {
+        limit: Joi.number(),
+        offset: Joi.number(),
+      },
+    },
+    handler: async (ctx: any) => {
+      ctx.success()
+    }
+  },
   // {
   //   method: `get`,
   //   path: `/:id`,
