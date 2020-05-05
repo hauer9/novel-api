@@ -33,13 +33,13 @@ app
   .use(logger())                                                      // Print request
   .use(bodyParser())                                                  // Parse body
   .use(request.interceptors.response())                               // Set response body struct
-  .use(jwt({ secret: jwtSecretKey }).unless({ custom: unless }))   // Set jwt and unAuth paths
-  .use(buildRoute)                                                    // Set routes
+  .use(jwt({ secret: jwtSecretKey }).unless({ custom: unless }))      // Set jwt and unAuth paths
   .use(novelRoute)                                                    // Set routes
   .use(userRoute)
   .use(typeRoute)
   .use(chapterRoute)
   .use(collectionRoute)
+  .use(buildRoute)
 
 
 export { app }

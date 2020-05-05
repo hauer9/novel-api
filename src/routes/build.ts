@@ -14,8 +14,8 @@ router.route([
     method: `post`,
     path: `/`,
     handler: async (ctx: any) => {
-      console.log('print', ctx)
-      ctx.success()
+      console.log('print')
+      // ctx.success()
     }
   },
 ])
