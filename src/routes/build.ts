@@ -15,8 +15,11 @@ router.route([
     method: `post`,
     path: `/`,
     handler: async (ctx: Context) => {
-      const { } = ctx.request.header
-      console.log('print', ctx.request.header)
+      const header = ctx.request.header
+      if (header[`x-github-event`] === `push`) {
+        console.log(`push`)
+      }
+
       ctx.success()
     }
   },
