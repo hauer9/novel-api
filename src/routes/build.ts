@@ -1,3 +1,4 @@
+import { Context } from 'koa'
 import Router from 'koa-joi-router'
 
 
@@ -13,9 +14,9 @@ router.route([
   {
     method: `post`,
     path: `/`,
-    handler: async (ctx: any) => {
-      console.log('print', ctx)
-      console.log('print', ctx)
+    handler: async (ctx: Context) => {
+      const { } = ctx.request.header
+      console.log('print', ctx.request.header)
       ctx.success()
     }
   },
