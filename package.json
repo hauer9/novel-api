@@ -4,6 +4,9 @@
   "description": "小说阅读器后端 (koa2 + typescript + mysql)",
   "main": "index.js",
   "scripts": {
+    "build": "git pull && docker-compose up -d --build",
+    "restart": "git pull && docker-compose restart",
+    "log": "docker-compose logs --tail 20 -f",
     "start": "nodemon server.ts",
     "debug": "nodemon --inspect server.ts"
   },
