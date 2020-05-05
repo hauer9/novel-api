@@ -2,7 +2,7 @@ import Router from 'koa-joi-router'
 import { chapterCtrl } from '../controllers'
 
 /* 
- * Defined novel routes
+ * Defined chapter routes
 */
 
 const Joi = Router.Joi
