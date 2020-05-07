@@ -26,9 +26,7 @@ export default class Collection extends BaseModel {
     allowNull: false,
     unique: true,
     validate: {
-      notNull: {
-        msg: `用户ID不能为空`
-      },
+      notNull: true,
     }
   })
   userId: number
