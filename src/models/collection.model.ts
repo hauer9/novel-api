@@ -36,7 +36,7 @@ export default class Collection extends BaseModel {
   @BelongsTo(() => User, { onDelete: `CASCADE` })
   user: User
 
-  // Novel
+  // Novel ...
   @ForeignKey(() => Novel)
   @Column({
     comment: `作品ID`,
