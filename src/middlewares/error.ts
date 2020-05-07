@@ -17,7 +17,7 @@ export const error = () => {
         fields = [],
       } = err
 
-      console.log(errors)
+      console.log(errors[0])
 
 
       if (status === 400)
