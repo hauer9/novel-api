@@ -17,8 +17,6 @@ export const error = () => {
         fields = [],
       } = err
 
-      console.log(errors[0])
-
 
       if (status === 400)
         return ctx.badRequest(message)
