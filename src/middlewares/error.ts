@@ -7,6 +7,7 @@ export const error = () => {
     return next().catch((err: any) => {
       const status = err.statusCode || err.status || 500
 
+      console.log(`err`, err)
       // return ctx.error(err)
 
       const {
