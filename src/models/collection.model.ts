@@ -24,7 +24,6 @@ export default class Collection extends BaseModel {
   @Column({
     comment: `用户`,
     allowNull: false,
-    unique: `collecionIndex`,
   })
   userId: number
 
