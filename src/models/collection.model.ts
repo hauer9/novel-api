@@ -42,9 +42,7 @@ export default class Collection extends BaseModel {
     comment: `作品ID`,
     allowNull: false,
     validate: {
-      notNull: {
-        msg: `作品ID不能为空`
-      },
+      notNull: true,
     }
   })
   novelId: number
