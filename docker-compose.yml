@@ -7,6 +7,8 @@ services:
     container_name: novelApi
     restart: always
     command: yarn start
+    env_file:
+      - .env
     volumes:
       - .:/novelApi
     expose:

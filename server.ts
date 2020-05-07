@@ -6,7 +6,7 @@ import { sequelize } from './sequelize'
  * Base config ...
  */
 
-const port = 8004;
+const port = process.env.PORT || 8000;
 
 
 (async () => {

@@ -1,7 +1,8 @@
 import { Sequelize } from 'sequelize-typescript'
-import { devConf, prodConf } from './src/conf'
+import { conf } from './src/conf'
 
-const sequelize = new Sequelize(prodConf)
+
+const sequelize = new Sequelize(conf[process.env.NODE_ENV as 'development' | 'production'])
 
 sequelize.addModels([__dirname + '/src/models/*.model.ts'])
 
