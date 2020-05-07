@@ -1,3 +1,7 @@
 export * from './conf'
 
-export const jwtSecretKey = `novel`
+const jwtSecretKey = `novel`
+
+export {
+  jwtSecretKey,
+}

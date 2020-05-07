@@ -17,19 +17,17 @@ import {
   }],
   attributes: { exclude: [`userId`, `novelId`] }
 })
-@Table({
-  indexes: [{
-    name: `collecionsIndex`,
-    unique: true,
-    fields: [`user_id`, `novel_id`],
-  }]
-})
+@Table
 export default class Collection extends BaseModel {
   // User
   @ForeignKey(() => User)
   @Column({
     comment: `用户`,
     allowNull: false,
+    unique: {
+      name: `collecionIndex`,
+      msg: `已收藏`,
+    },
   })
   userId: number
 
@@ -41,10 +39,7 @@ export default class Collection extends BaseModel {
   @Column({
     comment: `作品ID`,
     allowNull: false,
-    unique: {
-      name: `collecionsIndex`,
-      msg: `已收藏过了`,
-    },
+    unique: `collecionIndex`,
     validate: {
       notNull: {
         msg: `作品ID不能为空`
