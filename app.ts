@@ -10,7 +10,6 @@ import {
   request,
 } from './src/middlewares'
 import {
-  deployRoute,
   novelRoute,
   typeRoute,
   userRoute,
@@ -34,8 +33,7 @@ app
   .use(bodyParser())                                                  // Parse body
   .use(request.interceptors.response())                               // Set response body struct
   .use(jwt({ secret: jwtSecretKey }).unless({ custom: unless }))      // Set jwt and unAuth paths
-  .use(deployRoute)                                                   // Set routes
-  .use(novelRoute)                                                    
+  .use(novelRoute)                                                    // Set routes
   .use(userRoute)
   .use(typeRoute)
   .use(chapterRoute)
