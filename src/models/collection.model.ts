@@ -47,7 +47,7 @@ export default class Collection extends BaseModel {
     },
     validate: {
       notNull: {
-        msg: `作品ID不能为空`
+        msg: `作品ID不能为 空`
       },
     }
   })
