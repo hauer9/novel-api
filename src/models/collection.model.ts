@@ -37,7 +37,7 @@ export default class Collection extends BaseModel {
   } })
   user: User
 
-  // Novel
+  // Novel 
   @ForeignKey(() => Novel)
   @Column({
     comment: `作品ID`,
