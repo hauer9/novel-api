@@ -6,7 +6,7 @@ import { sequelize } from './sequelize'
  * Base config ...
  */
 
-const port = process.env.PORT || 8000;
+const port = process.env.PORT || 8080;
 
 
 (async () => {
@@ -24,7 +24,7 @@ const port = process.env.PORT || 8000;
    */
 
   app.listen(port, () => {
-    console.log(`Server is running at http://localhost:${port}`)
+    console.log(`Server is running at http://0.0.0.0:${port}`)
     console.log(`Press CTRL-C to stop \n`)
   })
 })()

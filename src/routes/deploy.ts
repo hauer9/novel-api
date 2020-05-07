@@ -9,7 +9,8 @@ router.route({
   method: `post`,
   path: `/`,
   handler: async (ctx: any) => {
-    console.log(ctx)
+    console.log(ctx.request.body)
+    ctx.success()
   },
 })
 

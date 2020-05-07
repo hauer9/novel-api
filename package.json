@@ -7,6 +7,7 @@
     "build": "git pull && docker-compose up -d --build",
     "restart": "git pull && docker-compose restart",
     "log": "docker-compose logs --tail 20 -f",
+    "rl": "yarn restart && yarn log",
     "start": "nodemon server.ts",
     "debug": "nodemon --inspect server.ts"
   },
