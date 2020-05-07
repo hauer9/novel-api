@@ -24,7 +24,7 @@ export default class Collection extends BaseModel {
   @Column({
     comment: `用户`,
     allowNull: false,
-    unique: `collecionIndex`,
+    unique: true,
     validate: {
       notNull: {
         msg: `用户ID不能为空`
@@ -41,10 +41,6 @@ export default class Collection extends BaseModel {
   @Column({
     comment: `作品ID`,
     allowNull: false,
-    unique: {
-      name: `collecionIndex`,
-      msg: `已收藏`,
-    },
     validate: {
       notNull: {
         msg: `作品ID不能为空`
