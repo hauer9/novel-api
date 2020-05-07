@@ -25,6 +25,11 @@ export default class Collection extends BaseModel {
     comment: `用户`,
     allowNull: false,
     unique: `collecionIndex`,
+    validate: {
+      notNull: {
+        msg: `用户ID不能为空`
+      },
+    }
   })
   userId: number
 
@@ -34,7 +39,7 @@ export default class Collection extends BaseModel {
   // Novel
   @ForeignKey(() => Novel)
   @Column({
-    comment: `作品ID test`,
+    comment: `作品ID`,
     allowNull: false,
     unique: {
       name: `collecionIndex`,

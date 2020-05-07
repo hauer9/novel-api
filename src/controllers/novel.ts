@@ -55,6 +55,7 @@ class Novel extends BaseCtrl {
 
     // The number of click inc 1 when the user clicked the novel
     novel.increment(`clickNum`)
+    
     ctx.success({ ...novel.dataValues, wordsNum })
   }
 
@@ -69,6 +70,7 @@ class Novel extends BaseCtrl {
       ],
       order: [[`clickNum`, `DESC`]],
     })
+
     ctx.success(data)
   }
 }

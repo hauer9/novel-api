@@ -36,12 +36,12 @@ router.route([
   {
     method: `post`,
     path: `/`,
-    validate: {
-      body: {
-        novelId: Joi.number().required(),
-      },
-      type: `json`,
-    },
+    // validate: {
+    //   body: {
+    //     novelId: Joi.number().required(),
+    //   },
+    //   type: `json`,
+    // },
     handler: collectionCtrl.create
   },
   {

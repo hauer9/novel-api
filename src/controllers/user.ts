@@ -70,6 +70,7 @@ class User extends BaseCtrl {
     const { id } = ctx.state.user
 
     const data = await UserModel.findOne({ where: { id } })
+    
     ctx.success(data)
   }
 }
