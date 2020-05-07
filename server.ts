@@ -11,12 +11,12 @@ const port = process.env.PORT || 8080;
 
 (async () => {
   /* 
-   * Connect database 
+   * Connect database
    */
 
   await sequelize.sync({
     alter: true,
-    force: true,
+    // force: true,
   })
 
   /* 
