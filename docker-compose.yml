@@ -8,7 +8,7 @@ services:
     restart: always
     command: yarn start
     env_file:
-      - .env
+      - ./.env
     volumes:
       - .:/novelApi
     expose:
