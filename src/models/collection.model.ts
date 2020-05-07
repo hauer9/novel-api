@@ -24,6 +24,7 @@ export default class Collection extends BaseModel {
   @Column({
     comment: `用户`,
     allowNull: false,
+    unique: `collecionIndex`,
     validate: {
       notNull: {
         msg: `用户ID不能为空`
@@ -32,20 +33,15 @@ export default class Collection extends BaseModel {
   })
   userId: number
 
-  @BelongsTo(() => User, { onDelete: `CASCADE`, foreignKey: {
-    unique: `collecionIndex`
-  } })
+  @BelongsTo(() => User, { onDelete: `CASCADE` })
   user: User
 
-  // Novel 
+  // Novel
   @ForeignKey(() => Novel)
   @Column({
     comment: `作品ID`,
     allowNull: false,
-    unique: {
-      name: `collecionIndex`,
-      msg: `已收藏`,
-    },
+    unique: `collecionIndex`,
     validate: {
       notNull: {
         msg: `作品ID不能为空`
