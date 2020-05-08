@@ -27,7 +27,7 @@ export default class Collection extends BaseModel {
     unique: `collecionIndex`,
     validate: {
       notNull: {
-        msg: `用户ID不能为空`
+        msg: `用户ID不能为空`,
       },
     }
   })
@@ -44,7 +44,7 @@ export default class Collection extends BaseModel {
     unique: `collecionIndex`,
     validate: {
       notNull: {
-        msg: `作品ID不能为空`
+        msg: `作品ID不能为空`,
       },
     }
   })
