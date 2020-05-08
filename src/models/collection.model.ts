@@ -34,7 +34,7 @@ export default class Collection extends BaseModel {
   userId: number
 
   @BelongsTo(() => User, { onDelete: `CASCADE` })
-  user: User 
+  user: User
 
   // Novel
   @ForeignKey(() => Novel)
