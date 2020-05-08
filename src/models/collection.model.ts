@@ -19,7 +19,7 @@ import {
 })
 @Table
 export default class Collection extends BaseModel {
-  // User
+  // User ...
   @ForeignKey(() => User)
   @Column({
     comment: `用户`,
