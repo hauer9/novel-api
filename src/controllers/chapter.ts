@@ -68,7 +68,7 @@ class Chapter extends BaseCtrl {
         })
       } catch (err) {
         // unAuthenticated
-        ctx.unAuthenticated(`Authentication Error`)
+        ctx.success(data)
       }
     }
     else
