@@ -39,12 +39,7 @@ router.route([
   {
     method: `get`,
     path: `/info`,
-    handler: userCtrl.getUserInfo,
-  },
-  {
-    method: `get`,
-    path: `/collections`,
-    handler: collectionCtrl.getOwnList,
+    handler: userCtrl.getOwnInfo,
   },
   {
     method: `get`,

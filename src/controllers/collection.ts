@@ -18,26 +18,14 @@ class Collection extends BaseCtrl {
 
     ctx.success()
   }
-
-  // Get Own collections list 
-  async getOwnList(ctx: any) {
-    const { id } = ctx.state.user
-    const q = ctx.query
-
-    const data = await CollectionModel.findAndCountAll({
-      ...q,
-      where: { userId: id }
-    })
-
-    ctx.success(data)
-  }
+  
 
   // Get collections list 
   async getList(ctx: any) {
     const { id } = ctx.params
     const q = ctx.query
 
-    const data = await super.model.findAndCountAll({
+    const data = await CollectionModel.findAndCountAll({
       ...q,
       where: { userId: id }
     })

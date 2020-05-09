@@ -1,6 +1,8 @@
-import { Sequelize } from 'sequelize-typescript'
+import { Op } from 'sequelize'
 import { BaseCtrl } from './base'
-import { Novel as NovelModel } from '../models'
+import { Novel as NovelModel, Collection as CollectionModel } from '../models'
+import jwt from 'jsonwebtoken'
+import { jwtSecretKey } from '../conf'
 
 
 class Novel extends BaseCtrl {
@@ -33,7 +35,7 @@ class Novel extends BaseCtrl {
     const data = await NovelModel.findAndCountAll({
       ...q,
       where: {
-        title: { [Sequelize.Op.like]: `%${title}%` }
+        title: { [Op.like]: `%${title}%` }
       },
     })
 
@@ -43,23 +45,64 @@ class Novel extends BaseCtrl {
   // Get detail
   async getDetail(ctx: any) {
     const { id } = ctx.params
+    const { authorization = null } = ctx.request.header
 
     const novel = await NovelModel.findByPk(id)
 
     if (!novel)
       return ctx.notFound()
 
-    // Get number of words which thr novel
-    const chapters: Array<any> = await novel.$get(`chapters`)
-    const wordsNum = chapters.reduce(((a, v) => a + v.chapterContent.length), 0)
-    
     // The number of click inc 1 when the user clicked the novel
     novel.increment('clickNum')
 
-    ctx.success({
-      ...novel?.dataValues,
-      wordsNum,
-    })
+    // Get number of words which thr novel
+    const chapters: Array<any> = await novel.$get(`chapters`)
+    const wordsNum = chapters.reduce(((a, v) => a + v.chapterContent.length), 0)
+    let isCollect = false
+
+
+    /* 
+     * 1. Check authorization and whether start with the `Bearer`
+     * 2. Check the token is valied, Do nothing when the token error
+     * 3. Check whether collect the novel
+     * 4. Finally send the content
+     */
+
+    if (authorization && authorization.startsWith(`Bearer `)) {
+      
+      // 7 is the `Bearer `
+      const token = authorization.slice(7)
+
+      try {
+        const decoded: any = jwt.verify(token, jwtSecretKey)
+        const { id: userId } = decoded
+
+        const isExist = await CollectionModel.findOne({
+          where: {
+            novelId: id,
+            userId,
+          }
+        })
+
+        if (isExist)
+          isCollect = true
+      } catch (err) {
+        // unAuthenticated
+      } finally {
+        ctx.success({
+          ...(novel as any).dataValues,
+          wordsNum,
+          isCollect,
+        })
+      }
+    }
+    else {
+      ctx.success({
+        ...(novel as any).dataValues,
+        wordsNum,
+        isCollect,
+      })
+    }
   }
 
   // Get hot novel by click number

@@ -84,10 +84,7 @@ export default class Novel extends BaseModel {
   @Column({
     comment: `公告`,
     validate: {
-      max: {
-        args: 200,
-        msg: `最多不超过200个字符`,
-      },
+      max: 100,
     }
   })
   announcement: string

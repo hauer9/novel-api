@@ -11,7 +11,7 @@ import {
 
 @Scopes({
   dir: {
-    attributes: [ `id`, `chapterTitle` ]
+    attributes: [`id`, `chapterTitle`]
   },
 })
 @Table
@@ -50,7 +50,7 @@ export default class Chapter extends BaseModel {
 
   // Chapter content
   @Column({
-    type: DataType.TEXT(`long`),
+    type: DataType.TEXT({ length: `long` }),
     comment: `章节内容`,
     allowNull: false,
     validate: {

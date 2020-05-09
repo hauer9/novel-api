@@ -22,7 +22,7 @@ export const error = () => {
       } = err
 
       if (isJoi) {
-        const msg = _.get(details, `[0].message`, `Request parameter error`).replace(/"/g, '')
+        const msg = _.get(details, `[0].message`, `Request parameter error`)
         return ctx.badRequest(msg)
       }
 

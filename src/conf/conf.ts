@@ -1,8 +1,8 @@
-import { ISequelizeConfig } from 'sequelize-typescript'
+import { SequelizeOptions } from 'sequelize-typescript'
 
 export interface IConf {
-  development: ISequelizeConfig
-  production: ISequelizeConfig
+  development: SequelizeOptions
+  production: SequelizeOptions
 }
 
 export const conf: IConf = {

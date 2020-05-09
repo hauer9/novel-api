@@ -152,11 +152,6 @@
   resolved "https://registry.npm.taobao.org/@types/bluebird/download/@types/bluebird-3.5.30.tgz?cache=0&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2F%40types%2Fbluebird%2Fdownload%2F%40types%2Fbluebird-3.5.30.tgz#ee034a0eeea8b84ed868b1aa60d690b08a6cfbc5"
   integrity sha1-7gNKDu6ouE7YaLGqYNaQsIps+8U=
 
-"@types/bluebird@3.5.26":
-  version "3.5.26"
-  resolved "https://registry.npm.taobao.org/@types/bluebird/download/@types/bluebird-3.5.26.tgz?cache=0&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2F%40types%2Fbluebird%2Fdownload%2F%40types%2Fbluebird-3.5.26.tgz#a38c438ae84fa02431d6892edf86e46edcbca291"
-  integrity sha1-o4xDiuhPoCQx1oku34bkbty8opE=
-
 "@types/bluebird@^3.5.27":
   version "3.5.29"
   resolved "https://registry.npm.taobao.org/@types/bluebird/download/@types/bluebird-3.5.29.tgz#7cd933c902c4fc83046517a1bef973886d00bdb6"
@@ -328,11 +323,6 @@
   resolved "https://registry.npm.taobao.org/@types/node/download/@types/node-13.13.4.tgz?cache=0&sync_timestamp=1588201510948&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2F%40types%2Fnode%2Fdownload%2F%40types%2Fnode-13.13.4.tgz#1581d6c16e3d4803eb079c87d4ac893ee7501c2c"
   integrity sha1-FYHWwW49SAPrB5yH1KyJPudQHCw=
 
-"@types/node@11.12.2":
-  version "11.12.2"
-  resolved "https://registry.npm.taobao.org/@types/node/download/@types/node-11.12.2.tgz?cache=0&sync_timestamp=1588201510948&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2F%40types%2Fnode%2Fdownload%2F%40types%2Fnode-11.12.2.tgz#d7f302e74b10e9801d52852137f652d9ee235da8"
-  integrity sha1-1/MC50sQ6YAdUoUhN/ZS2e4jXag=
-
 "@types/node@^12.6.9":
   version "12.12.18"
   resolved "https://registry.npm.taobao.org/@types/node/download/@types/node-12.12.18.tgz?cache=0&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2F%40types%2Fnode%2Fdownload%2F%40types%2Fnode-12.12.18.tgz#8d16634797d63c2af5bc647ce879f8de20b56469"
@@ -347,16 +337,6 @@
   version "1.2.3"
   resolved "https://registry.npm.taobao.org/@types/range-parser/download/@types/range-parser-1.2.3.tgz#7ee330ba7caafb98090bece86a5ee44115904c2c"
   integrity sha1-fuMwunyq+5gJC+zoal7kQRWQTCw=
-
-"@types/sequelize@4.28.1":
-  version "4.28.1"
-  resolved "https://registry.npm.taobao.org/@types/sequelize/download/@types/sequelize-4.28.1.tgz#9f111fba37527cf1d6c99da9203c278b7df275aa"
-  integrity sha1-nxEfujdSfPHWyZ2pIDwni33ydao=
-  dependencies:
-    "@types/bluebird" "*"
-    "@types/continuation-local-storage" "*"
-    "@types/lodash" "*"
-    "@types/validator" "*"
 
 "@types/sequelize@^4.28.4":
   version "4.28.8"
@@ -776,11 +756,6 @@ es6-error@^4.0.1:
   version "4.1.1"
   resolved "https://registry.npm.taobao.org/es6-error/download/es6-error-4.1.1.tgz#9e3af407459deed47e9a91f9b885a84eb05c561d"
   integrity sha1-njr0B0Wd7tR+mpH5uIWoTrBcVh0=
-
-es6-shim@0.35.3:
-  version "0.35.3"
-  resolved "https://registry.npm.taobao.org/es6-shim/download/es6-shim-0.35.3.tgz#9bfb7363feffff87a6cdb6cd93e405ec3c4b6f26"
-  integrity sha1-m/tzY/7//4emzbbNk+QF7DxLbyY=
 
 escape-html@^1.0.3:
   version "1.0.3"
@@ -1764,15 +1739,11 @@ sequelize-pool@^2.3.0:
   resolved "https://registry.npm.taobao.org/sequelize-pool/download/sequelize-pool-2.3.0.tgz#64f1fe8744228172c474f530604b6133be64993d"
   integrity sha1-ZPH+h0QigXLEdPUwYEthM75kmT0=
 
-sequelize-typescript@^0.6.11:
-  version "0.6.11"
-  resolved "https://registry.npm.taobao.org/sequelize-typescript/download/sequelize-typescript-0.6.11.tgz#3ed957adbb14c95c1b05da1d2d0e669dbc8e1bf8"
-  integrity sha1-PtlXrbsUyVwbBdodLQ5mnbyOG/g=
+sequelize-typescript@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.npm.taobao.org/sequelize-typescript/download/sequelize-typescript-1.1.0.tgz#d5c2945e7fbfe55a934917b27d84589858d79123"
+  integrity sha1-1cKUXn+/5VqTSReyfYRYmFjXkSM=
   dependencies:
-    "@types/bluebird" "3.5.26"
-    "@types/node" "11.12.2"
-    "@types/sequelize" "4.28.1"
-    es6-shim "0.35.3"
     glob "7.1.2"
 
 sequelize@^5.12.2:

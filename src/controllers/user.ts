@@ -1,5 +1,5 @@
 import { BaseCtrl } from './base'
-import { Sequelize } from 'sequelize-typescript'
+import { Op } from 'sequelize'
 import jwt from 'jsonwebtoken'
 import { jwtSecretKey } from '../conf'
 import { User as UserModel } from '../models'
@@ -20,7 +20,7 @@ class User extends BaseCtrl {
     // Match username is username or mobile
     const user = await UserModel.findOne({
       where: {
-        [Sequelize.Op.or]: [
+        [Op.or]: [
           { mobile: username },
           { username },
         ],
@@ -29,14 +29,14 @@ class User extends BaseCtrl {
     })
 
     if (!user)
-      return ctx.fail('用户名或密码错误')
+      return ctx.fail(`用户名或密码错误`)
 
     // Gen the token and set the token expiration is 7 days
     const token = jwt.sign({
       id: user.id,
       mobile: user.mobile,
     }, jwtSecretKey,
-      { expiresIn: '7 days' }
+      { expiresIn: `7 days` }
     )
 
     ctx.success({ 
@@ -47,7 +47,7 @@ class User extends BaseCtrl {
 
   // Regiest ctrl
   async reg(ctx: any) {
-    const { mobile = '', password = '' } = ctx.request.body
+    const { mobile = ``, password = `` } = ctx.request.body
 
     // Create user and Set default username is mobile
     const user = await UserModel.create({
@@ -56,23 +56,23 @@ class User extends BaseCtrl {
       password,
     })
 
-    const data = user.dataValues
+    const data: any = (user as any).dataValues
 
     const token = jwt.sign({
       id: data.id,
       mobile: data.mobile,
     }, jwtSecretKey,
-      { expiresIn: '7 days' }
+      { expiresIn: `7 days` }
     )
 
     ctx.success({ ...data, token })
   }
 
-  // Get User info ctrl
-  async getUserInfo(ctx: any) {
+  // Get Own info ctrl
+  async getOwnInfo(ctx: any) {
     const { id } = ctx.state.user
 
-    const data = await UserModel.findOne({ where: { id } })
+    const data = await UserModel.findByPk(id)
     
     ctx.success(data)
   }
