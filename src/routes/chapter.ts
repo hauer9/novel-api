@@ -13,31 +13,6 @@ router.prefix(`/chapters`)
 
 router.route([
   {
-    method: `get`,
-    path: `/dir/:novelId`,
-    validate: {
-      params: {
-        novelId: Joi.number().required(),
-      },
-      query: {
-        limit: Joi.number(),
-        offset: Joi.number()
-      },
-    },
-    handler: chapterCtrl.getDir,
-  },
-  {
-    method: `get`,
-    path: `/:novelId/:id`,
-    validate: {
-      params: {
-        novelId: Joi.number().required(),
-        id: Joi.number().required(),
-      }
-    },
-    handler: chapterCtrl.getDetail,
-  },
-  {
     method: `post`,
     path: `/`,
     validate: {

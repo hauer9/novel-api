@@ -1,5 +1,5 @@
 import Router from 'koa-joi-router'
-import { novelCtrl } from '../controllers'
+import { novelCtrl, chapterCtrl } from '../controllers'
 
 /* 
  * Defined novel routes
@@ -34,6 +34,31 @@ router.route([
       },
     },
     handler: novelCtrl.getHotNovel,
+  },
+  {
+    method: `get`,
+    path: `/:novelId/dir`,
+    validate: {
+      params: {
+        novelId: Joi.number().required(),
+      },
+      query: {
+        limit: Joi.number(),
+        offset: Joi.number()
+      },
+    },
+    handler: chapterCtrl.getDir,
+  },
+  {
+    method: `get`,
+    path: `/:novelId/:id`,
+    validate: {
+      params: {
+        novelId: Joi.number().required(),
+        id: Joi.number().required(),
+      }
+    },
+    handler: chapterCtrl.getDetail,
   },
   {
     method: `get`,
