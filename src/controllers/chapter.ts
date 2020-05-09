@@ -38,7 +38,7 @@ class Chapter extends BaseCtrl {
 
     /* 
      * 1. Check authorization and whether start with the `Bearer`
-     * 2. Check the token is valied, Do nothing when the token error
+     * 2. Check the token is valied
      * 3. Check whether collect the novel
      * 4. Finally send the content
      */
@@ -62,15 +62,13 @@ class Chapter extends BaseCtrl {
         if (isExist)
           isCollect = true
 
-        console.log(`isExist`, !!isExist)
-
         ctx.success({
           ...(data as any).dataValues,
           isCollect,
         })
       } catch (err) {
         // unAuthenticated
-        ctx.success(data)
+        ctx.unAuthenticated(`Authentication Error`)
       }
     }
     else
