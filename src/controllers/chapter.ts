@@ -43,7 +43,6 @@ class Chapter extends BaseCtrl {
      * 4. Finally send the content
      */
 
-     console.log(`authorization`, authorization)
     if (authorization && authorization.startsWith(`Bearer `)) {
 
       // 7 is the `Bearer `
@@ -52,8 +51,6 @@ class Chapter extends BaseCtrl {
       try {
         const decoded: any = jwt.verify(token, jwtSecretKey)
         const { id: userId } = decoded
-
-        console.log(`decoded`, decoded)
 
         const isExist = await CollectionModel.findOne({
           where: {
