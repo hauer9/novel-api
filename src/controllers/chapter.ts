@@ -62,6 +62,8 @@ class Chapter extends BaseCtrl {
         if (isExist)
           isCollect = true
 
+        console.log(`isExist`, !!isExist)
+
         ctx.success({
           ...(data as any).dataValues,
           isCollect,
