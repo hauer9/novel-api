@@ -12,7 +12,7 @@ class User extends BaseCtrl {
 
   // Login ctrl
   async login(ctx: any) {
-    const { username = '', password = '' } = ctx.request.body
+    const { username = ``, password = `` } = ctx.request.body
 
     // Created the Md5 password
     const md5Pwd = createMd5Pwd(password)
@@ -39,7 +39,10 @@ class User extends BaseCtrl {
       { expiresIn: '7 days' }
     )
 
-    ctx.success({ token })
+    ctx.success({ 
+      token,
+      userInfo: user,
+    })
   }
 
   // Regiest ctrl

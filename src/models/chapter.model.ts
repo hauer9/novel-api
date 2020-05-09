@@ -6,8 +6,14 @@ import {
   Column,
   ForeignKey,
   BelongsTo,
+  Scopes,
 } from 'sequelize-typescript'
 
+@Scopes({
+  dir: {
+    attributes: [ `id`, `chapterTitle` ]
+  },
+})
 @Table
 export default class Chapter extends BaseModel {
   // Novel

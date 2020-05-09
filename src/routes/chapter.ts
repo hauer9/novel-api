@@ -24,7 +24,7 @@ router.route([
         offset: Joi.number()
       },
     },
-    handler: chapterCtrl.getDir
+    handler: chapterCtrl.getDir,
   },
   {
     method: `get`,
@@ -35,7 +35,7 @@ router.route([
         id: Joi.number().required(),
       }
     },
-    handler: chapterCtrl.getDetail
+    handler: chapterCtrl.getDetail,
   },
   {
     method: `post`,
@@ -48,7 +48,7 @@ router.route([
       },
       type: `json`,
     },
-    handler: chapterCtrl.create
+    handler: chapterCtrl.create,
   },
   {
     method: `put`,
@@ -64,7 +64,7 @@ router.route([
       },
       type: `json`,
     },
-    handler: chapterCtrl.update
+    handler: chapterCtrl.update,
   },
   {
     method: `delete`,
@@ -74,7 +74,7 @@ router.route([
         id: Joi.number().required(),
       },
     },
-    handler: chapterCtrl.remove
+    handler: chapterCtrl.remove,
   },
 ])
 

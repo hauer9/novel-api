@@ -22,7 +22,7 @@ router.route([
       },
       type: `json`,
     },
-    handler: userCtrl.login
+    handler: userCtrl.login,
   },
   {
     method: `post`,
@@ -34,22 +34,22 @@ router.route([
       },
       type: `json`,
     },
-    handler: userCtrl.reg
+    handler: userCtrl.reg,
   },
   {
     method: `get`,
     path: `/info`,
-    handler: userCtrl.getUserInfo
+    handler: userCtrl.getUserInfo,
   },
   {
     method: `get`,
     path: `/collections`,
-    handler: collectionCtrl.getOwnList
+    handler: collectionCtrl.getOwnList,
   },
   {
     method: `get`,
     path: `/:id/collections`,
-    handler: collectionCtrl.getList
+    handler: collectionCtrl.getList,
   },
   {
     method: `get`,
@@ -60,7 +60,7 @@ router.route([
         offset: Joi.number()
       },
     },
-    handler: userCtrl.getList
+    handler: userCtrl.getList,
   },
   {
     method: `get`,
@@ -70,7 +70,7 @@ router.route([
         id: Joi.number().required(),
       }
     },
-    handler: userCtrl.getDetail
+    handler: userCtrl.getDetail,
   },
   {
     method: `put`,
@@ -90,7 +90,7 @@ router.route([
       },
       type: `json`,
     },
-    handler: userCtrl.update
+    handler: userCtrl.update,
   },
   {
     method: `delete`,
@@ -100,7 +100,7 @@ router.route([
         id: Joi.number().required(),
       },
     },
-    handler: userCtrl.remove
+    handler: userCtrl.remove,
   },
 ])
 

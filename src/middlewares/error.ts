@@ -1,3 +1,5 @@
+import _ from 'lodash'
+
 /* 
  * Handle all error 
 */
@@ -10,6 +12,8 @@ export const error = () => {
       // return ctx.error(err)
 
       const {
+        isJoi = false,
+        details = [],
         name = ``,
         errors = [],
         originalError,
@@ -17,6 +21,10 @@ export const error = () => {
         fields = [],
       } = err
 
+      if (isJoi) {
+        const msg = _.get(details, `[0].message`, `Request parameter error`).replace(/"/g, '')
+        return ctx.badRequest(msg)
+      }
 
       if (status === 400)
         return ctx.badRequest(message)
@@ -26,9 +34,10 @@ export const error = () => {
         switch (name) {
           case `SequelizeValidationError`:
           case `SequelizeUniqueConstraintError`:
-            return ctx.fail(errors[0].message)
+            const msg = _.get(errors, `[0].message`, `Validation error or uniqueConstraint error`)
+            return ctx.fail(msg)
           case `SequelizeForeignKeyConstraintError`:
-            return ctx.notFound(`${fields[0]} not found`)
+            return ctx.notFound(`${fields[0] || `field`} not found`)
           default:
             // Emit the error
             ctx.app.emit(`error`, err, ctx)

@@ -1,6 +1,6 @@
 import { BaseModel } from './base'
 import Novel from './novel.model'
-import { 
+import {
   Table,
   Column,
   HasMany,

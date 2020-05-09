@@ -2,6 +2,7 @@ import { Sequelize } from 'sequelize-typescript'
 import { BaseCtrl } from './base'
 import { Novel as NovelModel } from '../models'
 
+
 class Novel extends BaseCtrl {
   constructor() {
     super(NovelModel)
@@ -13,12 +14,13 @@ class Novel extends BaseCtrl {
     const { id } = ctx.state.user
 
     const novel = await NovelModel.create({ title, authorId: id, typeId })
+
     try {
       await novel.$create(`chapter`, chapterBody)
-    } catch (e) {
+    } catch (err) {
       // Remove the novel when created the chapter happend error
       novel.destroy({ force: true })
-      return ctx.fail(e.errors[0].message)
+      return ctx.fail(err.errors[0].message)
     }
 
     ctx.success()
@@ -42,9 +44,7 @@ class Novel extends BaseCtrl {
   async getDetail(ctx: any) {
     const { id } = ctx.params
 
-    let novel: any
-
-    novel = await NovelModel.findByPk(id)
+    const novel = await NovelModel.findByPk(id)
 
     if (!novel)
       return ctx.notFound()
@@ -52,24 +52,21 @@ class Novel extends BaseCtrl {
     // Get number of words which thr novel
     const chapters: Array<any> = await novel.$get(`chapters`)
     const wordsNum = chapters.reduce(((a, v) => a + v.chapterContent.length), 0)
-
-    // The number of click inc 1 when the user clicked the novel
-    novel.increment(`clickNum`)
     
-    ctx.success({ ...novel.dataValues, wordsNum })
+    // The number of click inc 1 when the user clicked the novel
+    novel.increment('clickNum')
+
+    ctx.success({
+      ...novel?.dataValues,
+      wordsNum,
+    })
   }
 
   // Get hot novel by click number
   async getHotNovel(ctx: any) {
-    const data = await NovelModel.unscoped().findAndCountAll({
-      ...ctx.query,
-      attributes: [
-        `id`,
-        `title`,
-        `clickNum`,
-      ],
-      order: [[`clickNum`, `DESC`]],
-    })
+    const q = ctx.query
+
+    const data = await NovelModel.scope(`hot`).findAndCountAll(q)
 
     ctx.success(data)
   }

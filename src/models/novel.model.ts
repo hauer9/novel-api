@@ -16,6 +16,12 @@ import {
 
 
 @Scopes({
+  hot: {
+    attributes: [`id`, `title`, `clickNum`],
+    order: [[`clickNum`, `DESC`]],
+  }
+})
+@Scopes({
   simple: {
     include: [() => User, () => Type],
     attributes: { exclude: [`authorId`, `typeId`, `info`, `announcement`] },
@@ -23,7 +29,6 @@ import {
 })
 @DefaultScope({
   include: [() => User, () => Type],
-  attributes: { exclude: [`authorId`, `typeId`] },
   order: [[`createdAt`, `DESC`]],
 })
 @Table

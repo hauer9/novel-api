@@ -22,7 +22,7 @@ router.route([
         title: Joi.string(),
       },
     },
-    handler: novelCtrl.getList
+    handler: novelCtrl.getList,
   },
   {
     method: `get`,
@@ -33,7 +33,7 @@ router.route([
         offset: Joi.number(),
       },
     },
-    handler: novelCtrl.getHotNovel
+    handler: novelCtrl.getHotNovel,
   },
   {
     method: `get`,
@@ -43,7 +43,7 @@ router.route([
         id: Joi.number().required(),
       }
     },
-    handler: novelCtrl.getDetail
+    handler: novelCtrl.getDetail,
   },
   {
     method: `post`,
@@ -57,7 +57,7 @@ router.route([
       },
       type: `json`,
     },
-    handler: novelCtrl.create
+    handler: novelCtrl.create,
   },
   {
     method: `put`,
@@ -72,7 +72,7 @@ router.route([
       },
       type: `json`,
     },
-    handler: novelCtrl.update
+    handler: novelCtrl.update,
   },
   {
     method: `delete`,
@@ -82,7 +82,7 @@ router.route([
         id: Joi.number().required(),
       },
     },
-    handler: novelCtrl.remove
+    handler: novelCtrl.remove,
   },
 ])
 

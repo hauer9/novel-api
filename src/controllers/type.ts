@@ -8,7 +8,9 @@ class Type extends BaseCtrl {
 
   // Get list
   async getNovelsByTypes(ctx: any) {
-    const data = await TypeModel.scope('novels').findAndCountAll(ctx.query)
+    const q = ctx.query
+
+    const data = await TypeModel.scope('novels').findAndCountAll(q)
     
     ctx.success(data)
   }

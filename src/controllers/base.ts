@@ -5,6 +5,12 @@ export class BaseCtrl {
 
   constructor(model: typeof BaseModel) {
     this.model = model
+
+    this.create = this.create.bind(this)
+    this.remove = this.remove.bind(this)
+    this.update = this.update.bind(this)
+    this.getList = this.getList.bind(this)
+    this.getDetail = this.getDetail.bind(this)
   }
 
   async create(ctx: any) {
@@ -17,18 +23,12 @@ export class BaseCtrl {
   async remove(ctx: any) {
     const { id } = ctx.params
 
-    const isExist = await this.model.findByPk(id)
+    const instance = await this.model.findByPk(id)
 
-    if (!isExist)
+    if (!instance)
       return ctx.notFound()
 
-    const affectedRows = await this.model.destroy({
-      where: { id },
-      force: true,
-    })
-
-    if (!affectedRows)
-      return ctx.badRequest(`删除失败`)
+   await instance.destroy({ force: true })
 
     ctx.success()
   }
@@ -37,18 +37,12 @@ export class BaseCtrl {
     const { id } = ctx.params
     const { body } = ctx.request
 
-    const isExist = await this.model.findByPk(id)
+    const instance = await this.model.findByPk(id)
 
-    if (!isExist)
+    if (!instance)
       return ctx.notFound()
 
-    const affectedRows = await this.model.update(
-      body,
-      { where: { id } },
-    )
-
-    if (!affectedRows)
-      return ctx.badRequest(`更新失败`)
+    await instance.update(body)
 
     ctx.success()
   }
@@ -63,11 +57,11 @@ export class BaseCtrl {
   async getDetail(ctx: any) {
     const { id } = ctx.params
 
-    const data = await this.model.findOne({ where: { id } })
+    const instance = await this.model.findByPk(id)
 
-    if (!data)
+    if (!instance)
       return ctx.notFound()
 
-    ctx.success(data)
+    ctx.success(instance)
   }
 }

@@ -21,7 +21,7 @@ router.route([
         offset: Joi.number()
       },
     },
-    handler: typeCtrl.getList
+    handler: typeCtrl.getList,
   },
   {
     method: `get`,
@@ -32,7 +32,7 @@ router.route([
         offset: Joi.number()
       },
     },
-    handler: typeCtrl.getNovelsByTypes
+    handler: typeCtrl.getNovelsByTypes,
   },
   {
     method: `get`,
@@ -42,7 +42,7 @@ router.route([
         id: Joi.number().required(),
       }
     },
-    handler: typeCtrl.getDetail
+    handler: typeCtrl.getDetail,
   },
   {
     method: `post`,
@@ -53,7 +53,7 @@ router.route([
       },
       type: `json`,
     },
-    handler: typeCtrl.create
+    handler: typeCtrl.create,
   },
   {
     method: `put`,
@@ -67,7 +67,7 @@ router.route([
       },
       type: `json`,
     },
-    handler: typeCtrl.update
+    handler: typeCtrl.update,
   },
   {
     method: `delete`,
@@ -77,7 +77,7 @@ router.route([
         id: Joi.number().required(),
       },
     },
-    handler: typeCtrl.remove
+    handler: typeCtrl.remove,
   },
 ])
 

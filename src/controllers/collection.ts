@@ -37,7 +37,7 @@ class Collection extends BaseCtrl {
     const { id } = ctx.params
     const q = ctx.query
 
-    const data = await CollectionModel.findAndCountAll({
+    const data = await super.model.findAndCountAll({
       ...q,
       where: { userId: id }
     })

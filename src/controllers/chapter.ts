@@ -9,16 +9,11 @@ class Chapter extends BaseCtrl {
   // Get Dir
   async getDir(ctx: any) {
     const { novelId } = ctx.params
+    const q = ctx.query
 
-    const data = await ChapterModel.findAndCountAll({
-      ...ctx.query,
-      attributes: [
-        'id',
-        'chapterTitle',
-      ],
-      where: {
-        novelId,
-      },
+    const data = await ChapterModel.scope(`dir`).findAndCountAll({
+      ...q,
+      where: { novelId },
     })
     ctx.success(data)
   }
