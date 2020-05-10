@@ -44,6 +44,15 @@ router.route([
   {
     method: `get`,
     path: `/:id/collections`,
+    validate: {
+      params: {
+        id: Joi.number().required(),
+      },
+      query: {
+        limit: Joi.number(),
+        offset: Joi.number()
+      },
+    },
     handler: collectionCtrl.getList,
   },
   {
