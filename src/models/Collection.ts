@@ -1,7 +1,7 @@
-import { BaseModel } from './base'
-import User from './user.model'
-import Novel from './novel.model'
+import { User } from './User'
+import { Novel } from './Novel'
 import {
+  Model,
   Table,
   Column,
   ForeignKey,
@@ -18,13 +18,15 @@ import {
   attributes: { exclude: [`userId`, `novelId`] },
 }))
 @Table({
+  paranoid: true,
+  underscored: true,
   indexes: [{
     unique: true,
     name: `collection_index`,
     fields: [`user_id`, `novel_id`],
   }]
 })
-export default class Collection extends BaseModel {
+export class Collection extends Model<Collection> {
   // User
   @ForeignKey(() => User)
   @Column({

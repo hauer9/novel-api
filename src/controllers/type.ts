@@ -1,5 +1,5 @@
 import { BaseCtrl } from './base'
-import { Type as TypeModel } from '../models'
+import { Type as TypeModel } from '../models/Type'
 
 
 class Type extends BaseCtrl {
@@ -11,13 +11,11 @@ class Type extends BaseCtrl {
   async getNovelsByTypes(ctx: any) {
     const q = ctx.query
 
-    const { rows, count: novelCount } = await TypeModel.scope('novels').findAndCountAll(q)
-
-    ctx.success({
-      count: rows.length,
-      novelCount,
-      rows,
+    const data = await TypeModel.scope(`novels`).findAndCountAll({
+      ...q,
     })
+
+    ctx.success(data)
   }
 }
 

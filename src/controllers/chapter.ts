@@ -1,5 +1,6 @@
 import { BaseCtrl } from './base'
-import { Chapter as ChapterModel, Collection as CollectionModel } from '../models'
+import { Chapter as ChapterModel } from '../models/Chapter'
+import { Collection as CollectionModel } from '../models/Collection'
 import jwt from 'jsonwebtoken'
 import { jwtSecretKey } from '../conf'
 
@@ -17,7 +18,7 @@ class Chapter extends BaseCtrl {
       ...q,
       where: { novelId },
     })
-    
+
     ctx.success(data)
   }
 

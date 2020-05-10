@@ -1,5 +1,5 @@
 import { BaseCtrl } from './base'
-import { Collection as CollectionModel } from '../models'
+import { Collection as CollectionModel } from '../models/Collection'
 
 class Collection extends BaseCtrl {
   constructor() {
@@ -18,7 +18,7 @@ class Collection extends BaseCtrl {
 
     ctx.success()
   }
-  
+
 
   // Get collections list 
   async getList(ctx: any) {

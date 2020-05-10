@@ -1,9 +1,9 @@
-import { BaseModel } from './base'
-import User from './user.model'
-import Type from './type.model'
-import Chapter from './chapter.model'
-import Collection from './collection.model'
+import { User } from './User'
+import { Type } from './Type'
+import { Chapter } from './Chapter'
+import { Collection } from './Collection'
 import {
+  Model,
   Table,
   Column,
   ForeignKey,
@@ -32,8 +32,11 @@ import {
   include: [User, Type],
   order: [[`createdAt`, `DESC`]],
 }))
-@Table
-export default class Novel extends BaseModel {
+@Table({
+  paranoid: true,
+  underscored: true,
+})
+export class Novel extends Model<Novel> {
   // Title
   @Index({
     unique: true,

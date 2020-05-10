@@ -1,6 +1,6 @@
-import { BaseModel } from './base'
-import Novel from './novel.model'
+import { Novel } from './Novel'
 import {
+  Model,
   Table,
   Column,
   Index,
@@ -17,8 +17,11 @@ import {
     order: [[`createdAt`, `DESC`]],
   },
 }))
-@Table
-export default class Type extends BaseModel {
+@Table({
+  paranoid: true,
+  underscored: true,
+})
+export class Type extends Model<Type> {
   // Name
   @Index({
     unique: true,

@@ -1,6 +1,6 @@
-import { Op } from 'sequelize'
+import { Sequelize, Op } from 'sequelize'
 import { BaseCtrl } from './base'
-import { Novel as NovelModel } from '../models'
+import { Novel as NovelModel } from '../models/Novel'
 
 
 class Novel extends BaseCtrl {
@@ -57,12 +57,14 @@ class Novel extends BaseCtrl {
     novel.increment('clickNum')
 
     // Get number of words which thr novel
-    const chapters: Array<any> = await novel.$get(`chapters`)
-    const wordsNum = chapters.reduce(((a, v) => a + v.chapterContent.length), 0)
+    const [{ wordsNum }] = await <any>novel.$get(`chapters`, {
+      attributes: [[Sequelize.fn(`SUM`, Sequelize.fn(`CHAR_LENGTH`, Sequelize.col(`chapter_content`))), `wordsNum`]],
+      raw: true,
+    })
 
     ctx.success({
       ...(novel as any).dataValues,
-      wordsNum,
+      wordsNum: Number(wordsNum),
     })
   }
 

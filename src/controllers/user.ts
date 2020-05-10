@@ -2,7 +2,7 @@ import { BaseCtrl } from './base'
 import { Op } from 'sequelize'
 import jwt from 'jsonwebtoken'
 import { jwtSecretKey } from '../conf'
-import { User as UserModel } from '../models'
+import { User as UserModel } from '../models/User'
 import { createMd5Pwd } from '../utils'
 
 class User extends BaseCtrl {
@@ -39,7 +39,7 @@ class User extends BaseCtrl {
       { expiresIn: `7 days` }
     )
 
-    ctx.success({ 
+    ctx.success({
       token,
       userInfo: user,
     })
@@ -73,7 +73,7 @@ class User extends BaseCtrl {
     const { id } = ctx.state.user
 
     const data = await UserModel.findByPk(id)
-    
+
     ctx.success(data)
   }
 }

@@ -1,9 +1,7 @@
-import { BaseModel } from '../models'
-
 export class BaseCtrl {
-  public model: typeof BaseModel
+  public model: any
 
-  constructor(model: typeof BaseModel) {
+  constructor(model: any) {
     this.model = model
 
     this.create = this.create.bind(this)

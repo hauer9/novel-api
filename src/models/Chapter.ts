@@ -1,6 +1,6 @@
-import { BaseModel } from './base'
-import Novel from './novel.model'
+import { Novel } from './Novel'
 import {
+  Model,
   Table,
   DataType,
   Column,
@@ -14,8 +14,11 @@ import {
     attributes: [`id`, `chapterTitle`],
   },
 }))
-@Table
-export default class Chapter extends BaseModel {
+@Table({
+  paranoid: true,
+  underscored: true,
+})
+export class Chapter extends Model<Chapter> {
   // Novel
   @ForeignKey(() => Novel)
   @Column({

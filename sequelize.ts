@@ -6,5 +6,5 @@ const env = process.env.NODE_ENV as `development` | `production`
 
 export const sequelize = new Sequelize({
   ...conf[env],
-  modelPaths: [__dirname + `/src/models/*.model.ts`]
+  modelPaths: [__dirname + `/src/models`]
 })

@@ -1,7 +1,7 @@
-import { BaseModel } from './base'
-import Novel from './novel.model'
-import Collection from './collection.model'
+import { Novel } from './Novel'
+import { Collection } from './Collection'
 import {
+  Model,
   Table,
   Column,
   Index,
@@ -15,8 +15,11 @@ import { createMd5Pwd } from '../utils'
 @DefaultScope(() => ({
   attributes: { exclude: [`password`] },
 }))
-@Table
-export default class User extends BaseModel {
+@Table({
+  paranoid: true,
+  underscored: true,
+})
+export class User extends Model<User> {
   // Mobile
   @Index({
     unique: true,
