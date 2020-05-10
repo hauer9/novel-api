@@ -60,7 +60,7 @@ export class User extends Model<User> {
     validate: {
       notNull: true,
       notEmpty: true,
-      max: 20,
+      // max: 20,
     },
   })
   username: string
