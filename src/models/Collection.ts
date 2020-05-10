@@ -16,6 +16,7 @@ import {
     attributes: { exclude: [`authorId`, `typeId`, `info`, `announcement`] },
   }],
   attributes: { exclude: [`userId`, `novelId`] },
+  order: [[`createdAt`, `DESC`]],
 }))
 @Table({
   paranoid: true,
