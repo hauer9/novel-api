@@ -77,7 +77,7 @@ export default class User extends BaseModel {
   })
   email: string
 
-  // Gender ...
+  // Gender
   @Column({
     comment: `性别 (0: 未知, 1: 男, 2: 女, 9: 不适用)`,
     type: DataType.TINYINT({ length: 1 }),
