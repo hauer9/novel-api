@@ -37,9 +37,11 @@ export default class Novel extends BaseModel {
   @Column({
     comment: `标题`,
     allowNull: false,
-    unique: {
-      name: `title`,
-      msg: `标题已存在`,
+    unique: true,
+    validate: {
+      notNull: true,
+      notEmpty: true,
+      max: 20,
     },
   })
   title: string
@@ -49,6 +51,9 @@ export default class Novel extends BaseModel {
   @Column({
     comment: `作者`,
     allowNull: false,
+    validate: {
+      notNull: true,
+    },
   })
   authorId: number
 
@@ -60,6 +65,9 @@ export default class Novel extends BaseModel {
   @Column({
     comment: `类型`,
     allowNull: false,
+    validate: {
+      notNull: true,
+    },
   })
   typeId: number
 
@@ -70,13 +78,20 @@ export default class Novel extends BaseModel {
   @Column({
     comment: `封面`,
     defaultValue: `https://qiniu.tuscanyyy.top/IMG_0122.JPG`,
+    validate: {
+      isUrl: true,
+    },
   })
   cover: string
 
   // Info
   @Column({
-    type: DataType.TEXT,
     comment: `简介`,
+    type: DataType.TEXT,
+    validate: {
+      notEmpty: true,
+      max: 500,
+    },
   })
   info: string
 
@@ -84,8 +99,9 @@ export default class Novel extends BaseModel {
   @Column({
     comment: `公告`,
     validate: {
+      notEmpty: true,
       max: 100,
-    }
+    },
   })
   announcement: string
 
@@ -93,6 +109,9 @@ export default class Novel extends BaseModel {
   @Column({
     comment: `点击数`,
     defaultValue: 0,
+    validate: {
+      isNumeric: true,
+    },
   })
   clickNum: number
 
@@ -100,6 +119,9 @@ export default class Novel extends BaseModel {
   @Column({
     comment: `喜欢数`,
     defaultValue: 0,
+    validate: {
+      isNumeric: true,
+    },
   })
   likeNum: number
 
@@ -107,6 +129,9 @@ export default class Novel extends BaseModel {
   @Column({
     comment: `收藏数`,
     defaultValue: 0,
+    validate: {
+      isNumeric: true,
+    },
   })
   collectionNum: number
 

@@ -18,14 +18,11 @@ export default class Type extends BaseModel {
   @Column({
     comment: `类型名`,
     allowNull: false,
-    unique: {
-      name: `name`,
-      msg: `类型已存在`,
-    },
+    unique: true,
     validate: {
-      notNull: {
-        msg: `类型不能为空`
-      },
+      notNull: true,
+      notEmpty: true,
+      max: 10,
     }
   })
   name: string

@@ -32,7 +32,7 @@ export default class Collection extends BaseModel {
     allowNull: false,
     validate: {
       notNull: true,
-    }
+    },
   })
   userId: number
 
@@ -46,7 +46,7 @@ export default class Collection extends BaseModel {
     allowNull: false,
     validate: {
       notNull: true,
-    }
+    },
   })
   novelId: number
 

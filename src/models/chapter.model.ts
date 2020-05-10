@@ -22,14 +22,12 @@ export default class Chapter extends BaseModel {
     comment: `作品ID`,
     allowNull: false,
     validate: {
-      notNull: {
-        msg: `作品ID不能为空`
-      },
-    }
+      notNull: true,
+    },
   })
   novelId: number
 
-  @BelongsTo(() => Novel)
+  @BelongsTo(() => Novel, { onDelete: `CASCADE` })
   novel: Novel
 
   // Chapter title
@@ -37,31 +35,23 @@ export default class Chapter extends BaseModel {
     comment: `章节标题`,
     allowNull: false,
     validate: {
-      notNull: {
-        msg: `章节标题不能为空`
-      },
-      len: {
-        args: [1, 50],
-        msg: `章节标题长度在1-50个字符之间`,
-      },
-    }
+      notNull: true,
+      notEmpty: true,
+      max: 20,
+    },
   })
   chapterTitle: string
 
   // Chapter content
   @Column({
-    type: DataType.TEXT({ length: `long` }),
     comment: `章节内容`,
+    type: DataType.TEXT({ length: `long` }),
     allowNull: false,
     validate: {
-      notNull: {
-        msg: `内容不能为空`
-      },
-      len: {
-        args: [10, 999999],
-        msg: `内容不少于10个字符`,
-      },
-    }
+      notNull: true,
+      notEmpty: true,
+      min: 10,
+    },
   })
   chapterContent: string
 }

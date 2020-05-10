@@ -4,16 +4,12 @@ import Collection from './collection.model'
 import {
   Table,
   Column,
+  DataType,
   DefaultScope,
   HasMany,
 } from 'sequelize-typescript'
 import { createMd5Pwd } from '../utils'
 
-
-enum IGender {
-  '男' = 0,
-  '女' = 1,
-}
 
 @DefaultScope({
   attributes: { exclude: [`password`] },
@@ -24,9 +20,11 @@ export default class User extends BaseModel {
   @Column({
     comment: `手机号码`,
     allowNull: false,
-    unique: {
-      name: `mobile`,
-      msg: `手机号已存在`,
+    unique: true,
+    validate: {
+      notNull: true,
+      notEmpty: true,
+      len: [6, 20],
     },
   })
   mobile: string
@@ -35,6 +33,11 @@ export default class User extends BaseModel {
   @Column({
     comment: `密码`,
     allowNull: false,
+    validate: {
+      notNull: true,
+      notEmpty: true,
+      min: 6,
+    },
   })
   set password(password: string) {
     const md5Pwd = createMd5Pwd(password) // md5加密
@@ -45,15 +48,11 @@ export default class User extends BaseModel {
   @Column({
     comment: `用户名`,
     allowNull: false,
-    unique: {
-      name: `username`,
-      msg: `用户名已存在`,
-    },
+    unique: true,
     validate: {
-      len: {
-        args: [1, 20],
-        msg: `用户名字符数应在1-20字符之间`,
-      }
+      notNull: true,
+      notEmpty: true,
+      max: 20,
     },
   })
   username: string
@@ -63,9 +62,7 @@ export default class User extends BaseModel {
     comment: `头像`,
     defaultValue: `https://qiniu.tuscanyyy.top/head-659651_1920.png`,
     validate: {
-      isUrl: {
-        msg: `非法的url`,
-      }
+      isUrl: true,
     }
   })
   avatar: string
@@ -73,33 +70,32 @@ export default class User extends BaseModel {
   // Email
   @Column({
     comment: `邮箱`,
-    unique: {
-      name: `email`,
-      msg: `邮箱已存在`,
-    },
+    unique: true,
     validate: {
-      isEmail: {
-        msg: `邮箱格式错误`,
-      }
+      isEmail: true,
     }
   })
   email: string
 
   // Gender
   @Column({
-    comment: `性别 (0: 男, 1: 女)`,
+    comment: `性别 (0: 未知, 1: 男, 2: 女, 9: 不适用)`,
+    type: DataType.TINYINT({ length: 1 }),
+    defaultValue: 0,
+    validate: {
+      isIn: [[`0`, `1`, `2`, `9`]],
+    },
   })
-  gender: IGender
+  gender: number
 
   // Age
   @Column({
     comment: `年龄`,
+    type: DataType.TINYINT({ length: 3 }),
     validate: {
-      len: {
-        args: [0, 200],
-        msg: `年龄应在0-200岁之间`,
-      }
-    }
+      isNumeric: true,
+      max: 188,
+    },
   })
   age: number
 
@@ -107,11 +103,8 @@ export default class User extends BaseModel {
   @Column({
     comment: `生日日期`,
     validate: {
-      isDate: {
-        args: true,
-        msg: `日期格式错误`,
-      }
-    }
+      isDate: true,
+    },
   })
   birthday: Date
 
