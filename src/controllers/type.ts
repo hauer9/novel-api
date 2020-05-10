@@ -7,7 +7,7 @@ class Type extends BaseCtrl {
     super(TypeModel)
   }
 
-  // Get list ...
+  // Get list
   async getNovelsByTypes(ctx: any) {
     const q = ctx.query
 
