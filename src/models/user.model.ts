@@ -4,6 +4,7 @@ import Collection from './collection.model'
 import {
   Table,
   Column,
+  Index,
   DataType,
   DefaultScope,
   HasMany,
@@ -11,16 +12,18 @@ import {
 import { createMd5Pwd } from '../utils'
 
 
-@DefaultScope({
+@DefaultScope(() => ({
   attributes: { exclude: [`password`] },
-})
+}))
 @Table
 export default class User extends BaseModel {
   // Mobile
+  @Index({
+    unique: true,
+  })
   @Column({
     comment: `手机号码`,
     allowNull: false,
-    unique: true,
     validate: {
       notNull: true,
       notEmpty: true,
@@ -45,10 +48,12 @@ export default class User extends BaseModel {
   }
 
   // username
+  @Index({
+    unique: true,
+  })
   @Column({
     comment: `用户名`,
     allowNull: false,
-    unique: true,
     validate: {
       notNull: true,
       notEmpty: true,
@@ -68,9 +73,11 @@ export default class User extends BaseModel {
   avatar: string
 
   // Email
+  @Index({
+    unique: true,
+  })
   @Column({
     comment: `邮箱`,
-    unique: true,
     validate: {
       isEmail: true,
     }

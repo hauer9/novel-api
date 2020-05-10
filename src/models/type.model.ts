@@ -3,22 +3,29 @@ import Novel from './novel.model'
 import {
   Table,
   Column,
+  Index,
   HasMany,
   Scopes,
 } from 'sequelize-typescript'
 
-@Scopes({
+@Scopes(() => ({
   novels: {
-    include: [() => Novel]
-  }
-})
+    include: [{
+      model: Novel,
+      required: true,
+    }],
+    order: [[`createdAt`, `DESC`]],
+  },
+}))
 @Table
 export default class Type extends BaseModel {
   // Name
+  @Index({
+    unique: true,
+  })
   @Column({
     comment: `类型名`,
     allowNull: false,
-    unique: true,
     validate: {
       notNull: true,
       notEmpty: true,

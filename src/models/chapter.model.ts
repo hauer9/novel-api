@@ -9,11 +9,11 @@ import {
   Scopes,
 } from 'sequelize-typescript'
 
-@Scopes({
+@Scopes(() => ({
   dir: {
-    attributes: [`id`, `chapterTitle`]
+    attributes: [`id`, `chapterTitle`],
   },
-})
+}))
 @Table
 export default class Chapter extends BaseModel {
   // Novel

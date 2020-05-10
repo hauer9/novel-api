@@ -10,17 +10,17 @@ import {
 } from 'sequelize-typescript'
 
 
-@DefaultScope({
+@DefaultScope(() => ({
   include: [{
-    model: () => Novel,
-    attributes: { exclude: [`authorId`, `typeId`, `info`, `announcement`] }
+    model: Novel,
+    attributes: { exclude: [`authorId`, `typeId`, `info`, `announcement`] },
   }],
-  attributes: { exclude: [`userId`, `novelId`] }
-})
+  attributes: { exclude: [`userId`, `novelId`] },
+}))
 @Table({
   indexes: [{
     unique: true,
-    name: `collectionIndex`,
+    name: `collection_index`,
     fields: [`user_id`, `novel_id`],
   }]
 })

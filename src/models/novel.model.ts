@@ -9,35 +9,38 @@ import {
   ForeignKey,
   DataType,
   BelongsTo,
+  Index,
   DefaultScope,
   Scopes,
   HasMany,
 } from 'sequelize-typescript'
 
 
-@Scopes({
+@Scopes(() => ({
   hot: {
     attributes: [`id`, `title`, `clickNum`],
     order: [[`clickNum`, `DESC`]],
   }
-})
-@Scopes({
+}))
+@Scopes(() => ({
   simple: {
-    include: [() => User, () => Type],
+    include: [User, Type],
     attributes: { exclude: [`authorId`, `typeId`, `info`, `announcement`] },
   }
-})
-@DefaultScope({
-  include: [() => User, () => Type],
+}))
+@DefaultScope(() => ({
+  include: [User, Type],
   order: [[`createdAt`, `DESC`]],
-})
+}))
 @Table
 export default class Novel extends BaseModel {
   // Title
+  @Index({
+    unique: true,
+  })
   @Column({
     comment: `标题`,
     allowNull: false,
-    unique: true,
     validate: {
       notNull: true,
       notEmpty: true,
