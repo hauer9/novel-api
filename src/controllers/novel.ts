@@ -13,7 +13,11 @@ class Novel extends BaseCtrl {
     const { title, typeId, ...chapterBody } = ctx.request.body
     const { id } = ctx.state.user
 
-    const novel = await NovelModel.create({ title, authorId: id, typeId })
+    const novel = await NovelModel.create({
+      title,
+      authorId: id,
+      typeId,
+    })
 
     try {
       await novel.$create(`chapter`, chapterBody)
@@ -55,7 +59,7 @@ class Novel extends BaseCtrl {
     // Get number of words which thr novel
     const chapters: Array<any> = await novel.$get(`chapters`)
     const wordsNum = chapters.reduce(((a, v) => a + v.chapterContent.length), 0)
-    
+
     ctx.success({
       ...(novel as any).dataValues,
       wordsNum,
