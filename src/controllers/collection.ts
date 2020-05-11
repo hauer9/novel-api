@@ -33,7 +33,7 @@ class Collection extends BaseCtrl {
     ctx.success(data)
   }
 
-  // Remove the collection
+  // Remove the collection ...
   async remove(ctx: any) {
     const { id } = ctx.params
     const { id: userId } = ctx.state.user
