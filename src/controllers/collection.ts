@@ -20,7 +20,7 @@ class Collection extends BaseCtrl {
   }
 
 
-  // Get collections list 
+  // Get the collections list 
   async getList(ctx: any) {
     const { id } = ctx.params
     const q = ctx.query
@@ -32,6 +32,26 @@ class Collection extends BaseCtrl {
 
     ctx.success(data)
   }
+
+  // Remove the collection
+  async remove(ctx: any) {
+    const { id } = ctx.params
+    const { id: userId } = ctx.state.user
+
+    const instance = await this.model.findByPk(id)
+
+    if (!instance)
+      return ctx.notFound()
+
+    if (instance.userId !== userId)
+      return ctx.notFound(`Collection not found`)
+
+    await instance.destroy({ force: true })
+
+    ctx.success()
+  }
+
+
 }
 
 export const collectionCtrl = new Collection()
