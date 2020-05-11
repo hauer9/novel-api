@@ -38,7 +38,7 @@ class Collection extends BaseCtrl {
     const { id } = ctx.params
     const { id: userId } = ctx.state.user
 
-    const instance = await this.model.findByPk(id)
+    const instance = await CollectionModel.unscoped().findByPk(id)
 
     if (!instance)
       return ctx.notFound()
