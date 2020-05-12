@@ -141,16 +141,6 @@ export class Novel extends Model<Novel> {
   })
   clickNum: number
 
-  // Like number
-  @Column({
-    comment: `喜欢数`,
-    defaultValue: 0,
-    validate: {
-      isNumeric: true,
-    },
-  })
-  likeNum: number
-
   // Collection number
   @Column({
     comment: `收藏数`,
