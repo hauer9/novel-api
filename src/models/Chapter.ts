@@ -6,6 +6,7 @@ import {
   Column,
   ForeignKey,
   BelongsTo,
+  DefaultScope,
   Scopes,
 } from 'sequelize-typescript'
 
@@ -13,6 +14,10 @@ import {
   dir: {
     attributes: [`id`, `chapterTitle`],
   },
+}))
+@DefaultScope(() => ({
+  include: [Novel],
+  attributes: { exclude: [`novelId`] }
 }))
 @Table({
   paranoid: true,
