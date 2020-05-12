@@ -17,7 +17,7 @@ import {
 }))
 @DefaultScope(() => ({
   include: [Novel],
-  attributes: { exclude: [`novelId`] }
+  attributes: { exclude: [`novelId`] },
 }))
 @Table({
   paranoid: true,

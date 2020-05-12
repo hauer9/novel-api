@@ -1,5 +1,6 @@
 import { BaseCtrl } from './base'
 import { Chapter as ChapterModel } from '../models/Chapter'
+import { Novel as NovelModel } from '../models/Novel'
 import { Collection as CollectionModel } from '../models/Collection'
 import jwt from 'jsonwebtoken'
 import { jwtSecretKey } from '../conf'
@@ -9,7 +10,66 @@ class Chapter extends BaseCtrl {
     super(ChapterModel)
   }
 
-  // Get Dir
+
+  /* 
+   * Create chapter
+   */
+
+
+  async create(ctx: any) {
+    const { body } = ctx.request
+
+    const novel = await NovelModel.findByPk(body.novelId)
+
+    if (!novel)
+      return ctx.notFound(`novelId not found`)
+
+    try {
+      await ChapterModel.create(body)
+      await novel.increment(`chaptersNum`)
+      await novel.increment(`wordsNum`, { by: body.chapterContent.length || 0 })
+    } catch (err) {
+      await novel.decrement(`chaptersNum`)
+      await novel.decrement(`wordsNum`, { by: body.chapterContent.length || 0 })
+    }
+
+    ctx.success()
+  }
+
+
+  /* 
+   * Remove the chapter
+   */
+
+
+  async remove(ctx: any) {
+    const { id } = ctx.params
+
+    const chapter = await ChapterModel.unscoped().findByPk(id)
+
+    if (!chapter)
+      return ctx.notFound(`chapter not found`)
+
+    const novel = await NovelModel.findByPk(chapter.novelId)
+
+    if (!novel)
+      return ctx.notFound(`novelId not found`)
+
+    if (novel.chaptersNum === 1)
+      return ctx.fail(`only one chapter cannot be deleted, please delete the novel`)
+
+    await chapter.destroy({ force: true })
+    await novel.decrement(`chaptersNum`)
+    await novel.decrement(`wordsNum`, { by: chapter.chapterContent.length || 0 })
+
+    ctx.success()
+  }
+
+  /* 
+   * Get the Dir
+   */
+
+
   async getDir(ctx: any) {
     const { novelId } = ctx.params
     const q = ctx.query
@@ -22,7 +82,11 @@ class Chapter extends BaseCtrl {
     ctx.success(data)
   }
 
-  // Get detail
+  /* 
+   * Get the detail
+   */
+
+
   async getDetail(ctx: any) {
     const { novelId, id } = ctx.params
     const { authorization = null } = ctx.request.header

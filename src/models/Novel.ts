@@ -111,6 +111,26 @@ export class Novel extends Model<Novel> {
   })
   announcement: string
 
+  // Words number
+  @Column({
+    comment: `章数`,
+    defaultValue: 1,
+    validate: {
+      isNumeric: true,
+    },
+  })
+  chaptersNum: number
+
+  // Words number
+  @Column({
+    comment: `字数`,
+    defaultValue: 0,
+    validate: {
+      isNumeric: true,
+    },
+  })
+  wordsNum: number
+
   // Click number
   @Column({
     comment: `点击数`,
@@ -139,7 +159,7 @@ export class Novel extends Model<Novel> {
       isNumeric: true,
     },
   })
-  collectionNum: number
+  collectionsNum: number
 
   @HasMany(() => Chapter)
   chapters: Chapter[]

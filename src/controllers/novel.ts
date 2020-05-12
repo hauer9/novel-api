@@ -1,4 +1,4 @@
-import { Sequelize, Op } from 'sequelize'
+import { Op } from 'sequelize'
 import { BaseCtrl } from './base'
 import { Novel as NovelModel } from '../models/Novel'
 
@@ -10,7 +10,7 @@ class Novel extends BaseCtrl {
 
   // Create novel
   async create(ctx: any) {
-    const { title, typeId, ...chapterBody } = ctx.request.body
+    const { title, typeId, ...firstChapter } = ctx.request.body
     const { id } = ctx.state.user
 
     const novel = await NovelModel.create({
@@ -20,10 +20,11 @@ class Novel extends BaseCtrl {
     })
 
     try {
-      await novel.$create(`chapter`, chapterBody)
+      await novel.$create(`chapter`, firstChapter)
+      await novel.increment(`wordsNum`, { by: firstChapter.chapterContent.length || 0 })
     } catch (err) {
       // Remove the novel when created the chapter happend error
-      novel.destroy({ force: true })
+      await novel.destroy({ force: true })
       return ctx.fail(err.errors[0].message)
     }
 
@@ -54,18 +55,15 @@ class Novel extends BaseCtrl {
       return ctx.notFound()
 
     // The number of click inc 1 when the user clicked the novel
-    novel.increment('clickNum')
+    novel.increment(`clickNum`)
 
-    // Get number of words which thr novel
-    const [{ wordsNum }] = await <any>novel.$get(`chapters`, {
-      attributes: [[Sequelize.fn(`SUM`, Sequelize.fn(`CHAR_LENGTH`, Sequelize.col(`chapter_content`))), `wordsNum`]],
-      raw: true,
-    })
+    // Get the wordNum
+    // const [{ wordsNum }] = await <any>novel.$get(`chapters`, {
+    //   attributes: [[Sequelize.fn(`SUM`, Sequelize.fn(`CHAR_LENGTH`, Sequelize.col(`chapter_content`))), `wordsNum`]],
+    //   raw: true,
+    // })
 
-    ctx.success({
-      ...(novel as any).dataValues,
-      wordsNum: Number(wordsNum),
-    })
+    ctx.success(novel)
   }
 
   // Get hot novel by click number
