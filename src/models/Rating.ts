@@ -64,11 +64,15 @@ export class Rating extends Model<Rating> {
     validate: {
       isNumeric: true,
       isInt: true,
-      min: 1,
-      max: 5,
+      min: 2,
+      max: 10,
+      isEven(value: number) {
+        if (value % 2 !== 0)
+          throw new Error(`only even values are allowed`);
+      },
     },
   })
-  starCount: number
+  rating: number
 
   @BelongsTo(() => Novel, { onDelete: `CASCADE` })
   novel: Novel

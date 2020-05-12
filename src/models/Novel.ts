@@ -151,15 +151,19 @@ export class Novel extends Model<Novel> {
   })
   collectionsNum: number
 
-  // Star count
+  // Rating
   @Column({
-    comment: `星数`,
+    comment: `分数`,
+    type: DataType.FLOAT({ length: 1 }),
     defaultValue: 0,
     validate: {
       isNumeric: true,
     },
   })
-  starCount: number
+  set rating(value: any) {
+    const rating = Number.parseFloat(value).toFixed(1)
+    this.setDataValue(`rating`, rating)
+  }
 
   @HasMany(() => Chapter)
   chapters: Chapter[]

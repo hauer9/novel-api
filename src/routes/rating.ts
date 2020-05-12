@@ -18,7 +18,7 @@ router.route([
     validate: {
       body: {
         novelId: Joi.number().required(),
-        starCount: Joi.number().required(),
+        rating: Joi.number().required(),
       },
       type: `json`,
     },

@@ -18,7 +18,7 @@ class Rating extends BaseCtrl {
     const { id } = ctx.state.user
     const { body } = ctx.request
 
-    const rating = await this.createOrUpdate({
+    const instance = await this.createOrUpdate({
       userId: id,
       ...body,
     }, {
@@ -30,14 +30,15 @@ class Rating extends BaseCtrl {
      * Aggregated the stars to get the average of star count
      */
 
-    const [{ starCount }] = await <any>RatingModel.unscoped().findAll({
-      attributes: [[Sequelize.fn(`AVG`, Sequelize.col(`star_count`)), `starCount`]],
+    const [{ rating }] = await <any>RatingModel.unscoped().findAll({
+      attributes: [[Sequelize.fn(`AVG`, Sequelize.col(`rating`)), `rating`]],
       where: { novelId: body.novelId },
+      raw: true
     })
 
-    const novel = await rating.$get(`novel`)
+    const novel = await instance.$get(`novel`)
 
-    await novel.update({ starCount }, {
+    await novel.update({ rating }, {
       where: { id: body.novelId }
     })
 
