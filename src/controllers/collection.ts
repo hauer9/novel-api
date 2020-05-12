@@ -11,12 +11,17 @@ class Collection extends BaseCtrl {
     const { id } = ctx.state.user
     const { novelId } = ctx.request.body
 
-    await CollectionModel.create({
+    const collecion = await CollectionModel.create({
       userId: id,
       novelId,
     })
 
-    ctx.success()
+    const novel = await collecion.$get(`novel`)
+
+    ctx.success({
+      ...(collecion as any).dataValues,
+      novel: (novel as any).dataValues,
+    })
   }
 
 
