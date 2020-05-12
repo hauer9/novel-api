@@ -9,7 +9,7 @@ const Joi = Router.Joi
 const router = Router()
 
 
-router.prefix(`/rating`)
+router.prefix(`/ratings`)
 
 router.route([
   {
