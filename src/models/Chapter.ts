@@ -45,7 +45,7 @@ export class Chapter extends Model<Chapter> {
     validate: {
       notNull: true,
       notEmpty: true,
-      max: 20,
+      len: [1, 20],
     },
   })
   chapterTitle: string
@@ -58,7 +58,7 @@ export class Chapter extends Model<Chapter> {
     validate: {
       notNull: true,
       notEmpty: true,
-      min: 10,
+      len: [10, 100000000],
     },
   })
   chapterContent: string

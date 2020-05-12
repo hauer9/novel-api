@@ -18,6 +18,9 @@ class Collection extends BaseCtrl {
 
     const novel = await collecion.$get(`novel`)
 
+    if (novel)
+      novel.increment(`collectionsNum`)
+
     ctx.success({
       ...(collecion as any).dataValues,
       novel: (novel as any).dataValues,
@@ -43,15 +46,20 @@ class Collection extends BaseCtrl {
     const { id } = ctx.params
     const { id: userId } = ctx.state.user
 
-    const instance = await CollectionModel.unscoped().findByPk(id)
+    const collection = await CollectionModel.unscoped().findByPk(id)
 
-    if (!instance)
+    if (!collection)
       return ctx.notFound()
 
-    if (instance.userId !== userId)
+    if (collection.userId !== userId)
       return ctx.notFound(`Collection not found`)
 
-    await instance.destroy({ force: true })
+    const novel = await collection.$get(`novel`)
+
+    if (novel)
+      novel.decrement(`collectionsNum`)
+
+    await collection.destroy({ force: true })
 
     ctx.success()
   }

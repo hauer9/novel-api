@@ -32,7 +32,7 @@ export class Type extends Model<Type> {
     validate: {
       notNull: true,
       notEmpty: true,
-      max: 10,
+      len: [2, 10],
     }
   })
   name: string

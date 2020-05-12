@@ -60,7 +60,7 @@ export class User extends Model<User> {
     validate: {
       notNull: true,
       notEmpty: true,
-      // max: 20,
+      len: [1, 20],
     },
   })
   username: string
@@ -89,11 +89,13 @@ export class User extends Model<User> {
 
   // Gender
   @Column({
-    comment: `性别 (0: 未知, 1: 男, 2: 女, 9: 不适用)`,
+    comment: `性别 (0: 未知, 1: 男, 2: 女, 3: 不适用)`,
     type: DataType.TINYINT({ length: 1 }),
     defaultValue: 0,
     validate: {
-      isIn: [[`0`, `1`, `2`, `9`]],
+      isInt: true,
+      min: 0,
+      max: 3,
     },
   })
   gender: number
@@ -104,7 +106,7 @@ export class User extends Model<User> {
     type: DataType.TINYINT({ length: 3 }),
     validate: {
       isNumeric: true,
-      max: 188,
+      len: [0, 188],
     },
   })
   age: number

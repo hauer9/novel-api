@@ -1,3 +1,6 @@
+import { Model } from 'sequelize-typescript'
+
+
 export class BaseCtrl {
   public model: any
 
@@ -11,12 +14,40 @@ export class BaseCtrl {
     this.getDetail = this.getDetail.bind(this)
   }
 
+
+  /* 
+   * Create the instance
+  */
+
+
   async create(ctx: any) {
     const { body } = ctx.request
 
     await this.model.create(body)
+
     ctx.success()
   }
+
+  /* 
+   * Create or update the instance
+   */
+
+
+  async createOrUpdate(item: any, where: any) {
+
+    const instance = await this.model.findOne({ where })
+
+    if (instance)
+      return await instance.update(item, { where })
+    else
+      return await this.model.create(item)
+  }
+
+
+  /* 
+   * Remove the instance
+   */
+
 
   async remove(ctx: any) {
     const { id } = ctx.params
@@ -26,10 +57,16 @@ export class BaseCtrl {
     if (!instance)
       return ctx.notFound()
 
-   await instance.destroy({ force: true })
+    await instance.destroy({ force: true })
 
     ctx.success()
   }
+
+
+  /* 
+   * Update the instance
+   */
+
 
   async update(ctx: any) {
     const { id } = ctx.params
@@ -45,12 +82,24 @@ export class BaseCtrl {
     ctx.success()
   }
 
+
+  /* 
+   * Get the list
+   */
+
+
   async getList(ctx: any) {
     const q = ctx.query
 
     const data = await this.model.findAndCountAll(q)
     ctx.success(data)
   }
+
+
+  /* 
+   * Get the detail
+   */
+
 
   async getDetail(ctx: any) {
     const { id } = ctx.params

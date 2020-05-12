@@ -3,6 +3,7 @@ export * from './user'
 export * from './type'
 export * from './chapter'
 export * from './collection'
+export * from './rating'
 
 // UnAuth paths
 export const unAuthPaths = [

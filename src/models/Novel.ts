@@ -47,7 +47,7 @@ export class Novel extends Model<Novel> {
     validate: {
       notNull: true,
       notEmpty: true,
-      max: 20,
+      len: [1, 20],
     },
   })
   title: string
@@ -96,7 +96,7 @@ export class Novel extends Model<Novel> {
     type: DataType.TEXT,
     validate: {
       notEmpty: true,
-      max: 500,
+      len: [1, 500],
     },
   })
   info: string
@@ -106,7 +106,7 @@ export class Novel extends Model<Novel> {
     comment: `公告`,
     validate: {
       notEmpty: true,
-      max: 100,
+      len: [1, 100],
     },
   })
   announcement: string
@@ -150,6 +150,16 @@ export class Novel extends Model<Novel> {
     },
   })
   collectionsNum: number
+
+  // Star count
+  @Column({
+    comment: `星数`,
+    defaultValue: 0,
+    validate: {
+      isNumeric: true,
+    },
+  })
+  starCount: number
 
   @HasMany(() => Chapter)
   chapters: Chapter[]

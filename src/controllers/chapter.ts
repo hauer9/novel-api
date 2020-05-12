@@ -24,14 +24,9 @@ class Chapter extends BaseCtrl {
     if (!novel)
       return ctx.notFound(`novelId not found`)
 
-    try {
-      await ChapterModel.create(body)
-      await novel.increment(`chaptersNum`)
-      await novel.increment(`wordsNum`, { by: body.chapterContent.length || 0 })
-    } catch (err) {
-      await novel.decrement(`chaptersNum`)
-      await novel.decrement(`wordsNum`, { by: body.chapterContent.length || 0 })
-    }
+    await ChapterModel.create(body)
+    await novel.increment(`chaptersNum`)
+    await novel.increment(`wordsNum`, { by: body.chapterContent.length || 0 })
 
     ctx.success()
   }
@@ -50,7 +45,7 @@ class Chapter extends BaseCtrl {
     if (!chapter)
       return ctx.notFound(`chapter not found`)
 
-    const novel = await NovelModel.findByPk(chapter.novelId)
+    const novel = await chapter.$get(`novel`)
 
     if (!novel)
       return ctx.notFound(`novelId not found`)

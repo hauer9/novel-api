@@ -12,27 +12,6 @@ const router = Router()
 router.prefix(`/collections`)
 
 router.route([
-  // {
-  //   method: `get`,
-  //   path: `/`,
-  //   validate: {
-  //     query: {
-  //       limit: Joi.number(),
-  //       offset: Joi.number(),
-  //     },
-  //   },
-  //   handler: collectionCtrl.getList,
-  // },
-  // {
-  //   method: `get`,
-  //   path: `/:id`,
-  //   validate: {
-  //     params: {
-  //       id: Joi.number().required(),
-  //     }
-  //   },
-  //   handler: collectionCtrl.getDetail,
-  // },
   {
     method: `post`,
     path: `/`,
