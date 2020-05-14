@@ -1,3 +1,4 @@
+import { Context } from 'koa'
 import { BaseCtrl } from './base'
 import { Type as TypeModel } from '../models/Type'
 
@@ -8,7 +9,7 @@ class Type extends BaseCtrl {
   }
 
   // Get list
-  async getNovelsByTypes(ctx: any) {
+  async getNovelsByTypes(ctx: Context) {
     const q = ctx.query
 
     const data = await TypeModel.scope(`novels`).findAndCountAll(q)

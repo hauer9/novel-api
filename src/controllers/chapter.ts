@@ -1,9 +1,9 @@
+import { Context } from 'koa'
 import { BaseCtrl } from './base'
 import { Chapter as ChapterModel } from '../models/Chapter'
 import { Novel as NovelModel } from '../models/Novel'
 import { Collection as CollectionModel } from '../models/Collection'
-import jwt from 'jsonwebtoken'
-import { jwtSecretKey } from '../conf'
+import { verifyToken } from '../utils'
 
 class Chapter extends BaseCtrl {
   constructor() {
@@ -16,7 +16,7 @@ class Chapter extends BaseCtrl {
    */
 
 
-  async create(ctx: any) {
+  async create(ctx: Context) {
     const { body } = ctx.request
 
     const novel = await NovelModel.findByPk(body.novelId)
@@ -25,8 +25,10 @@ class Chapter extends BaseCtrl {
       return ctx.notFound(`novelId not found`)
 
     await ChapterModel.create(body)
-    await novel.increment(`chaptersNum`)
-    await novel.increment(`wordsNum`, { by: body.chapterContent.length || 0 })
+    await novel.increment({
+      chaptersNum: 1,
+      wordsNum: body.chapterContent.length || 0,
+    })
 
     ctx.success()
   }
@@ -37,7 +39,7 @@ class Chapter extends BaseCtrl {
    */
 
 
-  async remove(ctx: any) {
+  async remove(ctx: Context) {
     const { id } = ctx.params
 
     const chapter = await ChapterModel.unscoped().findByPk(id)
@@ -54,8 +56,10 @@ class Chapter extends BaseCtrl {
       return ctx.fail(`only one chapter cannot be deleted, please delete the novel`)
 
     await chapter.destroy({ force: true })
-    await novel.decrement(`chaptersNum`)
-    await novel.decrement(`wordsNum`, { by: chapter.chapterContent.length || 0 })
+    await novel.decrement({
+      chaptersNum: 1,
+      wordsNum: chapter.chapterContent.length || 0,
+    })
 
     ctx.success()
   }
@@ -65,7 +69,7 @@ class Chapter extends BaseCtrl {
    */
 
 
-  async getDir(ctx: any) {
+  async getDir(ctx: Context) {
     const { novelId } = ctx.params
     const q = ctx.query
 
@@ -82,19 +86,19 @@ class Chapter extends BaseCtrl {
    */
 
 
-  async getDetail(ctx: any) {
+  async getDetail(ctx: Context) {
     const { novelId, id } = ctx.params
     const { authorization = null } = ctx.request.header
 
-    const data = await ChapterModel.findOne({
+    const data: any = await ChapterModel.findOne({
       where: {
         novelId,
         id,
       },
     })
 
-    let isCollect = false
-
+    if (!data)
+      return ctx.notFound()
 
     /* 
      * 1. Check authorization and whether start with the `Bearer`
@@ -103,36 +107,21 @@ class Chapter extends BaseCtrl {
      * 4. Finally send the content
      */
 
-    if (authorization && authorization.startsWith(`Bearer `)) {
 
-      // 7 is the `Bearer `
-      const token = authorization.slice(7)
+    const result: any = verifyToken(authorization)
 
-      try {
-        const decoded: any = jwt.verify(token, jwtSecretKey)
-        const { id: userId } = decoded
+    if (result) {
+      const isCollect = await CollectionModel.findOne({
+        where: {
+          novelId,
+          userId: result.id,
+        },
+      })
 
-        const isExist = await CollectionModel.findOne({
-          where: {
-            novelId,
-            userId,
-          }
-        })
-
-        if (isExist)
-          isCollect = true
-
-        ctx.success({
-          ...(data as any).dataValues,
-          isCollect,
-        })
-      } catch (err) {
-        // unAuthenticated
-        ctx.success(data)
-      }
+      data.dataValues[`isCollect`] = !!isCollect
     }
-    else
-      ctx.success(data)
+
+    ctx.success(data)
   }
 }
 

@@ -1,5 +1,5 @@
+import { Context } from 'koa'
 import { BaseCtrl } from './base'
-import { Sequelize } from 'sequelize-typescript'
 import { Rating as RatingModel } from '../models/Rating'
 
 
@@ -14,32 +14,16 @@ class Rating extends BaseCtrl {
   */
 
 
-  async create(ctx: any) {
+  async create(ctx: Context) {
     const { id } = ctx.state.user
     const { body } = ctx.request
 
-    const instance = await this.createOrUpdate({
+    await this.createOrUpdate({
       userId: id,
       ...body,
     }, {
       userId: id,
       novelId: body.novelId,
-    })
-
-    /* 
-     * Aggregated the stars to get the average of star count
-     */
-
-    const [{ rating }] = await <any>RatingModel.unscoped().findAll({
-      attributes: [[Sequelize.fn(`AVG`, Sequelize.col(`rating`)), `rating`]],
-      where: { novelId: body.novelId },
-      raw: true
-    })
-
-    const novel = await instance.$get(`novel`)
-
-    await novel.update({ rating }, {
-      where: { id: body.novelId }
     })
 
     ctx.success()

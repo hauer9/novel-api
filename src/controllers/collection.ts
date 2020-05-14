@@ -1,3 +1,4 @@
+import { Context } from 'koa'
 import { BaseCtrl } from './base'
 import { Collection as CollectionModel } from '../models/Collection'
 
@@ -7,7 +8,7 @@ class Collection extends BaseCtrl {
   }
 
   // Created the user' s collection in state
-  async create(ctx: any) {
+  async create(ctx: Context) {
     const { id } = ctx.state.user
     const { novelId } = ctx.request.body
 
@@ -29,7 +30,7 @@ class Collection extends BaseCtrl {
 
 
   // Get the collections list 
-  async getList(ctx: any) {
+  async getList(ctx: Context) {
     const { id } = ctx.params
     const q = ctx.query
 
@@ -42,7 +43,7 @@ class Collection extends BaseCtrl {
   }
 
   // Remove the collection
-  async remove(ctx: any) {
+  async remove(ctx: Context) {
     const { id } = ctx.params
     const { id: userId } = ctx.state.user
 

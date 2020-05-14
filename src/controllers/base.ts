@@ -1,4 +1,4 @@
-import { Model } from 'sequelize-typescript'
+import { Context } from 'koa'
 
 
 export class BaseCtrl {
@@ -20,7 +20,7 @@ export class BaseCtrl {
   */
 
 
-  async create(ctx: any) {
+  async create(ctx: Context) {
     const { body } = ctx.request
 
     await this.model.create(body)
@@ -49,7 +49,7 @@ export class BaseCtrl {
    */
 
 
-  async remove(ctx: any) {
+  async remove(ctx: Context) {
     const { id } = ctx.params
 
     const instance = await this.model.findByPk(id)
@@ -68,7 +68,7 @@ export class BaseCtrl {
    */
 
 
-  async update(ctx: any) {
+  async update(ctx: Context) {
     const { id } = ctx.params
     const { body } = ctx.request
 
@@ -88,7 +88,7 @@ export class BaseCtrl {
    */
 
 
-  async getList(ctx: any) {
+  async getList(ctx: Context) {
     const q = ctx.query
 
     const data = await this.model.findAndCountAll(q)
@@ -101,7 +101,7 @@ export class BaseCtrl {
    */
 
 
-  async getDetail(ctx: any) {
+  async getDetail(ctx: Context) {
     const { id } = ctx.params
 
     const instance = await this.model.findByPk(id)

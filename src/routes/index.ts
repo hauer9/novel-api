@@ -1,3 +1,4 @@
+import { Context } from 'koa'
 export * from './novel'
 export * from './user'
 export * from './type'
@@ -15,7 +16,7 @@ export const unAuthPaths = [
   { url: /^\/types/, methods: [`GET`] },
 ]
 
-export const unless = (ctx: any) => {
+export const unless = (ctx: Context) => {
   const req = ctx.request
   for (let path of unAuthPaths) {
     const { url, methods } = path

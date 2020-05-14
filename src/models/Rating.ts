@@ -45,6 +45,7 @@ export class Rating extends Model<Rating> {
   user: User
 
   // Novel
+  @Index
   @ForeignKey(() => Novel)
   @Column({
     comment: `作品ID`,
@@ -55,10 +56,9 @@ export class Rating extends Model<Rating> {
   })
   novelId: number
 
-  // Star count
-  @Index
+  // Rating
   @Column({
-    comment: `星数`,
+    comment: `分数`,
     type: DataType.TINYINT({ length: 1 }),
     defaultValue: 0,
     validate: {

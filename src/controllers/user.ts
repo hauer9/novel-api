@@ -1,3 +1,4 @@
+import { Context } from 'koa'
 import { BaseCtrl } from './base'
 import { Op } from 'sequelize'
 import jwt from 'jsonwebtoken'
@@ -11,7 +12,7 @@ class User extends BaseCtrl {
   }
 
   // Login ctrl
-  async login(ctx: any) {
+  async login(ctx: Context) {
     const { username = ``, password = `` } = ctx.request.body
 
     // Created the Md5 password
@@ -46,7 +47,7 @@ class User extends BaseCtrl {
   }
 
   // Regiest ctrl
-  async reg(ctx: any) {
+  async reg(ctx: Context) {
     const { mobile = ``, password = `` } = ctx.request.body
 
     // Create user and Set default username is mobile
@@ -69,7 +70,7 @@ class User extends BaseCtrl {
   }
 
   // Get Own info ctrl
-  async getOwnInfo(ctx: any) {
+  async getOwnInfo(ctx: Context) {
     const { id } = ctx.state.user
 
     const data = await UserModel.findByPk(id)

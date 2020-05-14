@@ -1,3 +1,4 @@
+import { Context } from 'koa'
 import _ from 'lodash'
 
 /* 
@@ -5,7 +6,7 @@ import _ from 'lodash'
 */
 
 export const error = () => {
-  return async (ctx: any, next: any) => {
+  return async (ctx: Context, next: any) => {
     return next().catch((err: any) => {
       const status = err.statusCode || err.status || 500
 

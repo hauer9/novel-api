@@ -1,3 +1,6 @@
+import { Context } from 'koa'
+
+
 const interceptors = {
   /* 
   * Defined interface of returning informations 
@@ -5,7 +8,7 @@ const interceptors = {
   */
 
   response() {
-    return async (ctx: any, next: any) => {
+    return async (ctx: Context, next: any) => {
       // The format of returning informations when operation is fail
       ctx.fail = (msg: string = `Opt fail`) => {
         ctx.status = 200

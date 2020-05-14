@@ -1,6 +1,10 @@
-import { Op } from 'sequelize'
+import { Context } from 'koa'
+import { Sequelize, Op } from 'sequelize'
 import { BaseCtrl } from './base'
 import { Novel as NovelModel } from '../models/Novel'
+import { Rating as RatingModel } from '../models/Rating'
+import { verifyToken } from '../utils'
+import _ from 'lodash'
 
 
 class Novel extends BaseCtrl {
@@ -9,7 +13,7 @@ class Novel extends BaseCtrl {
   }
 
   // Create novel
-  async create(ctx: any) {
+  async create(ctx: Context) {
     const { title, typeId, ...firstChapter } = ctx.request.body
     const { id } = ctx.state.user
 
@@ -32,7 +36,7 @@ class Novel extends BaseCtrl {
   }
 
   // Get list
-  async getList(ctx: any) {
+  async getList(ctx: Context) {
     const { title = ``, ...q } = ctx.query
 
     const data = await NovelModel.findAndCountAll({
@@ -46,8 +50,9 @@ class Novel extends BaseCtrl {
   }
 
   // Get detail
-  async getDetail(ctx: any) {
+  async getDetail(ctx: Context) {
     const { id } = ctx.params
+    const { authorization = null } = ctx.request.header
 
     const novel = await NovelModel.findByPk(id)
 
@@ -57,17 +62,49 @@ class Novel extends BaseCtrl {
     // The number of click inc 1 when the user clicked the novel
     novel.increment(`clickNum`)
 
-    // Get the wordNum
-    // const [{ wordsNum }] = await <any>novel.$get(`chapters`, {
-    //   attributes: [[Sequelize.fn(`SUM`, Sequelize.fn(`CHAR_LENGTH`, Sequelize.col(`chapter_content`))), `wordsNum`]],
-    //   raw: true,
-    // })
+    /* 
+     * Aggregated the stars to get the average of rating source
+     */
 
-    ctx.success(novel)
+    const { rows, count } = await <any>RatingModel.unscoped().findAndCountAll({
+      attributes: [[Sequelize.fn(`AVG`, Sequelize.col(`rating`)), `source`]],
+      where: { novelId: id },
+      raw: true,
+    })
+
+    const source = _.get(rows, `[0].source`, 0)
+
+    /* 
+     * Check is login
+     */
+
+    const result: any = verifyToken(authorization)
+
+    const data = {
+      ...(novel as any).dataValues,
+      rating: {
+        source: Number(parseFloat(source).toFixed(1)),
+        count,
+      },
+    }
+
+    if (result) {
+      const instance = await RatingModel.unscoped().findOne({
+        where: {
+          novelId: id,
+          userId: result.id,
+        }
+      })
+
+      if (instance)
+        data.rating[`ownSource`] = instance.rating
+    }
+    
+    ctx.success(data)
   }
 
   // Get hot novel by click number
-  async getHotNovel(ctx: any) {
+  async getHotNovel(ctx: Context) {
     const q = ctx.query
 
     const data = await NovelModel.scope(`hot`).findAndCountAll(q)
