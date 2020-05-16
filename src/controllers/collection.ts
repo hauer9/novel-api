@@ -36,7 +36,7 @@ class Collection extends BaseCtrl {
 
     const data = await CollectionModel.findAndCountAll({
       ...q,
-      where: { userId: id }
+      where: { userId: id },
     })
 
     ctx.success(data)

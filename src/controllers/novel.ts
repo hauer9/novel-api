@@ -60,7 +60,7 @@ class Novel extends BaseCtrl {
       return ctx.notFound()
 
     // The number of click inc 1 when the user clicked the novel
-    novel.increment(`clickNum`)
+
 
     /* 
      * Aggregated the stars to get the average of rating source
@@ -99,7 +99,7 @@ class Novel extends BaseCtrl {
       if (instance)
         data.rating[`ownSource`] = instance.rating
     }
-    
+
     ctx.success(data)
   }
 

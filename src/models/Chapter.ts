@@ -10,14 +10,15 @@ import {
   Scopes,
 } from 'sequelize-typescript'
 
+
+@DefaultScope(() => ({
+  include: [Novel.unscoped()],
+  attributes: { exclude: [`novelId`] },
+}))
 @Scopes(() => ({
   dir: {
     attributes: [`id`, `chapterTitle`],
   },
-}))
-@DefaultScope(() => ({
-  include: [Novel],
-  attributes: { exclude: [`novelId`] },
 }))
 @Table({
   paranoid: true,

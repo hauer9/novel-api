@@ -16,21 +16,23 @@ import {
 } from 'sequelize-typescript'
 
 
+@DefaultScope(() => ({
+  include: [User, Type, {
+    model: Chapter.unscoped(),
+    attributes: [`id`],
+    limit: 1,
+  }],
+  order: [[`createdAt`, `DESC`]],
+}))
 @Scopes(() => ({
   hot: {
     attributes: [`id`, `title`, `clickNum`],
     order: [[`clickNum`, `DESC`]],
-  }
-}))
-@Scopes(() => ({
+  },
   simple: {
     include: [User, Type],
     attributes: { exclude: [`authorId`, `typeId`, `info`, `announcement`] },
-  }
-}))
-@DefaultScope(() => ({
-  include: [User, Type],
-  order: [[`createdAt`, `DESC`]],
+  },
 }))
 @Table({
   paranoid: true,
